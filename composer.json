@@ -1,0 +1,5 @@
+{
+    "require": {
+        "probablyrational/wasabi-storage": "^1.3"
+    }
+}
