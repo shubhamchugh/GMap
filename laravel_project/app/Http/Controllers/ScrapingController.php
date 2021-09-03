@@ -7,7 +7,9 @@ use App\Item;
 use App\User;
 use App\State;
 use App\Review;
+use App\Country;
 use Carbon\Carbon;
+use App\CategoryItem;
 use App\ItemImageGallery;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -20,14 +22,21 @@ class ScrapingController extends Controller
     {
 
         $now     = Carbon::now();
-        $city    = City::where('created_at', null)->orderBy('id', 'ASC')->first();
+        $start   = (!empty($request->start)) ? $request->start : 1;
+        $end     = (!empty($request->end)) ? $request->end : 999999999999999999;
+        $city    = City::where('created_at', null)->whereBetween('id', [$start, $end])->orderBy('id', 'ASC')->first();
+        if(empty($city))
+        {
+            dd("Dont have City to scrape");
+        }
         $state   = $city->state_id;
-        $country = State::where('id', $state)->orderBy('id', 'ASC')->first();
+        $state   = State::where('id', $state)->orderBy('id', 'ASC')->first();
+        $country = Country::where('id', $state->country_id)->orderBy('id', 'ASC')->first();
         $city->update([
             'created_at' => $now,
         ]);
 
-        $googleMapSearch = 'http://localhost:3000/search?search=http://www.google.com/maps/search/' . urlencode($request->keyword) . '+in+' . urlencode($city->city_name) . '+' . urlencode($city->city_state) . '+' . urlencode($country->state_country_abbr) . '/';
+        $googleMapSearch = 'http://45.79.102.192:3000/search?search=http://www.google.com/maps/search/' . urlencode($request->keyword) . '+in+' . urlencode($city->city_name) . ',+' . urlencode($state->state_name) . ',+' . urlencode($country->country_name) . '/';
         echo "$googleMapSearch<br>";
         $curl = curl_init($googleMapSearch);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
@@ -43,7 +52,7 @@ class ScrapingController extends Controller
             foreach ($SearchResponse['url'] as $key => $value) {
                 $googleMapUrl = $value;
                 $userCount    = User::all();
-                $googleMap    = 'http://localhost:3000/?url=' . $googleMapUrl;
+                $googleMap    = 'http://45.79.102.192:3000/?url=' . $googleMapUrl;
                 echo "$googleMap<br>";
                 $curl = curl_init($googleMap);
                 curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
@@ -63,7 +72,7 @@ class ScrapingController extends Controller
 
                     $coordinate = str_replace("@", "", $coordinates[0]);
                     $coordinate = explode(",", $coordinate);
-
+                    
                     $title             = (!empty($response['title'][0])) ? trim($response['title'][0]) : "Not Available";
                     $title2            = (!empty($response['title2'][0])) ? trim($response['title2'][0]) : "Not Available";
                     $addressContent    = (!empty($response['addressContent'][0])) ? trim($response['addressContent'][0]) : "Not Available";
@@ -86,8 +95,10 @@ class ScrapingController extends Controller
                     print_r($image);
                     $item_description = "<strong><h4>Time Table: </h4></strong>";
                     $item_description .= '
-                <table border="1" cellspacing="0" cellpadding="2">
+                    <table style="width: 100%;" border="1" cellpadding="2">
                     <tr>';
+                    if(strpos($addressContent, $city->city_name)) // if address  have city name
+                    {
                     if ('Not Available' !== $timeTable) {
                         foreach ($timeTable as $time) {
                             $item_description .= "<th> $time </th>";
@@ -99,6 +110,7 @@ class ScrapingController extends Controller
 
                     if ('Not Available' !== $testimonial) {
                         foreach ($testimonial as $testimonialValue) {
+                            $testimonialValue = str_replace("reviewers", "", $testimonialValue);
                             $item_description .= "<h4> $testimonialValue </h4> <br>";
                         }
                         $item_description .= '</p>';
@@ -179,14 +191,14 @@ class ScrapingController extends Controller
                         Storage::disk('wasabi')->put($blurPath, $blurImage);
 
                     } else {
-                        $singleImage = 'noimage.png';
+                        $singleImageName = 'noimage.png';
                     }
-
+                    
                     $item = Item::create([
                         'user_id'                => 1,
                         'city_id'                => $city->id,
-                        'state_id'               => $state,
-                        'country_id'             => $country->country_id,
+                        'state_id'               => $state->id,
+                        'country_id'             => $country->id,
                         'item_status'            => 2,
                         'item_featured'          => 0,
                         'item_featured_by_admin' => 0,
@@ -195,7 +207,7 @@ class ScrapingController extends Controller
                         'item_address'           => $addressContent,
                         'item_website'           => $websiteContent,
                         'item_phone'             => $phoneContent,
-                        'item_slug'              => $slug,
+                        //'item_slug'              => $slug,
                         'item_image'             => $singleImageName,
                         'item_image_medium'      => $singleImageName,
                         'item_image_small'       => $singleImageName,
@@ -206,6 +218,13 @@ class ScrapingController extends Controller
                         'item_lng'               => $coordinate[1],
 
                     ]);
+
+                    $category_item = CategoryItem::create([
+                        'category_id' => 1,
+                        'item_id'     => $item->id,
+
+                    ]);
+
                     foreach ($reviewsContent as $key => $reviewsContentValue) {
                         $recommend = array(
                             'Yes',
@@ -262,6 +281,7 @@ class ScrapingController extends Controller
                             );
                         }
                     }
+                }
                 } else {
                     echo "Product Page Not Found";
                 }

@@ -1,11 +1,12 @@
 <?php return array (
   'app' => 
   array (
-    'name' => 'googlemap',
-    'env' => 'local',
+    'name' => 'Pest Control',
+    'env' => 'development',
     'debug' => true,
-    'url' => 'http://googlemap.test',
+    'url' => 'https://pestcontrolgroup.in',
     'asset_url' => NULL,
+    'WASABI_BUCKET' => 'pestcontrolgooglemap',
     'timezone' => 'UTC',
     'locale' => 'en',
     'fallback_locale' => 'en',
@@ -181,7 +182,7 @@
       'file' => 
       array (
         'driver' => 'file',
-        'path' => '/var/www/googlemap/laravel_project/storage/framework/cache/data',
+        'path' => '/home/runcloud/webapps/PestControlGoogleMap/laravel_project/storage/framework/cache/data',
       ),
       'memcached' => 
       array (
@@ -220,7 +221,7 @@
         'endpoint' => NULL,
       ),
     ),
-    'prefix' => 'googlemap_cache',
+    'prefix' => 'pest_control_cache',
   ),
   'canvas' => 
   array (
@@ -272,7 +273,7 @@
       array (
         'driver' => 'sqlite',
         'url' => NULL,
-        'database' => 'googlemap',
+        'database' => 'PestControlGoogleMap',
         'prefix' => '',
         'foreign_key_constraints' => true,
       ),
@@ -282,9 +283,9 @@
         'url' => NULL,
         'host' => '127.0.0.1',
         'port' => '3306',
-        'database' => 'googlemap',
-        'username' => 'root',
-        'password' => 'root',
+        'database' => 'PestControlGoogleMap',
+        'username' => 'PestControlGoogleMap',
+        'password' => 'unknown24',
         'unix_socket' => '',
         'charset' => 'utf8mb4',
         'collation' => 'utf8mb4_unicode_ci',
@@ -302,9 +303,9 @@
         'url' => NULL,
         'host' => '127.0.0.1',
         'port' => '3306',
-        'database' => 'googlemap',
-        'username' => 'root',
-        'password' => 'root',
+        'database' => 'PestControlGoogleMap',
+        'username' => 'PestControlGoogleMap',
+        'password' => 'unknown24',
         'charset' => 'utf8',
         'prefix' => '',
         'prefix_indexes' => true,
@@ -317,9 +318,9 @@
         'url' => NULL,
         'host' => '127.0.0.1',
         'port' => '3306',
-        'database' => 'googlemap',
-        'username' => 'root',
-        'password' => 'root',
+        'database' => 'PestControlGoogleMap',
+        'username' => 'PestControlGoogleMap',
+        'password' => 'unknown24',
         'charset' => 'utf8',
         'prefix' => '',
         'prefix_indexes' => true,
@@ -332,7 +333,7 @@
       'options' => 
       array (
         'cluster' => 'redis',
-        'prefix' => 'googlemap_database_',
+        'prefix' => 'pest_control_database_',
       ),
       'default' => 
       array (
@@ -361,13 +362,13 @@
       'local' => 
       array (
         'driver' => 'local',
-        'root' => '/var/www/googlemap/laravel_project/storage/app',
+        'root' => '/home/runcloud/webapps/PestControlGoogleMap/laravel_project/storage/app',
       ),
       'public' => 
       array (
         'driver' => 'local',
-        'root' => '/var/www/googlemap/laravel_project/storage/app/public',
-        'url' => 'http://googlemap.test/laravel_project/public/storage',
+        'root' => '/home/runcloud/webapps/PestControlGoogleMap/laravel_project/storage/app/public',
+        'url' => 'https://pestcontrolgroup.in/laravel_project/public/storage',
         'visibility' => 'public',
       ),
       's3' => 
@@ -385,7 +386,7 @@
         'key' => 'FKLR1YROTB4TEW1J9IR4',
         'secret' => 'zdzsBPHQNGSOZSNJa53qCynHlfUUPuROr39fm6Mi',
         'region' => 'us-west-1',
-        'bucket' => 'testa',
+        'bucket' => 'pestcontrolgooglemap',
         'root' => '/',
       ),
     ),
@@ -534,13 +535,13 @@
       'single' => 
       array (
         'driver' => 'single',
-        'path' => '/var/www/googlemap/laravel_project/storage/logs/laravel.log',
+        'path' => '/home/runcloud/webapps/PestControlGoogleMap/laravel_project/storage/logs/laravel.log',
         'level' => 'debug',
       ),
       'daily' => 
       array (
         'driver' => 'daily',
-        'path' => '/var/www/googlemap/laravel_project/storage/logs/laravel.log',
+        'path' => '/home/runcloud/webapps/PestControlGoogleMap/laravel_project/storage/logs/laravel.log',
         'level' => 'debug',
         'days' => 14,
       ),
@@ -590,7 +591,7 @@
       ),
       'emergency' => 
       array (
-        'path' => '/var/www/googlemap/laravel_project/storage/logs/laravel.log',
+        'path' => '/home/runcloud/webapps/PestControlGoogleMap/laravel_project/storage/logs/laravel.log',
       ),
     ),
   ),
@@ -613,7 +614,7 @@
       'theme' => 'default',
       'paths' => 
       array (
-        0 => '/var/www/googlemap/laravel_project/resources/views/vendor/mail',
+        0 => '/home/runcloud/webapps/PestControlGoogleMap/laravel_project/resources/views/vendor/mail',
       ),
     ),
     'log_channel' => NULL,
@@ -658,7 +659,7 @@
     'encoding' => 'UTF-8',
     'finalize' => true,
     'ignoreNonStrings' => false,
-    'cachePath' => '/var/www/googlemap/laravel_project/storage/app/purifier',
+    'cachePath' => '/home/runcloud/webapps/PestControlGoogleMap/laravel_project/storage/app/purifier',
     'cacheFileMode' => 493,
     'settings' => 
     array (
@@ -1103,7 +1104,7 @@
     'lifetime' => 120,
     'expire_on_close' => false,
     'encrypt' => false,
-    'files' => '/var/www/googlemap/laravel_project/storage/framework/sessions',
+    'files' => '/home/runcloud/webapps/PestControlGoogleMap/laravel_project/storage/framework/sessions',
     'connection' => NULL,
     'table' => 'sessions',
     'store' => NULL,
@@ -1112,12 +1113,25 @@
       0 => 2,
       1 => 100,
     ),
-    'cookie' => 'googlemap_session',
+    'cookie' => 'pest_control_session',
     'path' => '/',
     'domain' => NULL,
     'secure' => false,
     'http_only' => true,
     'same_site' => NULL,
+  ),
+  'sluggable' => 
+  array (
+    'source' => NULL,
+    'maxLength' => NULL,
+    'maxLengthKeepWords' => true,
+    'method' => NULL,
+    'separator' => '-',
+    'unique' => true,
+    'uniqueSuffix' => NULL,
+    'includeTrashed' => false,
+    'reserved' => NULL,
+    'onUpdate' => false,
   ),
   'translation' => 
   array (
@@ -1141,8 +1155,8 @@
     ),
     'scan_paths' => 
     array (
-      0 => '/var/www/googlemap/laravel_project/app',
-      1 => '/var/www/googlemap/laravel_project/resources',
+      0 => '/home/runcloud/webapps/PestControlGoogleMap/laravel_project/app',
+      1 => '/home/runcloud/webapps/PestControlGoogleMap/laravel_project/resources',
     ),
     'ui_url' => 'languages',
     'database' => 
@@ -1156,10 +1170,10 @@
   array (
     'paths' => 
     array (
-      0 => '/var/www/googlemap/laravel_project/resources/views',
-      1 => '/var/www/googlemap/laravel_project/theme_views',
+      0 => '/home/runcloud/webapps/PestControlGoogleMap/laravel_project/resources/views',
+      1 => '/home/runcloud/webapps/PestControlGoogleMap/laravel_project/theme_views',
     ),
-    'compiled' => '/var/www/googlemap/laravel_project/storage/framework/views',
+    'compiled' => '/home/runcloud/webapps/PestControlGoogleMap/laravel_project/storage/framework/views',
   ),
   'flare' => 
   array (
@@ -1212,7 +1226,7 @@
   'sitemap' => 
   array (
     'use_cache' => false,
-    'cache_key' => 'laravel-sitemap.http://googlemap.test',
+    'cache_key' => 'laravel-sitemap.https://pestcontrolgroup.in',
     'cache_duration' => 3600,
     'escaping' => true,
     'use_limit_size' => false,

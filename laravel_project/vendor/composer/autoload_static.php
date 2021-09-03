@@ -177,8 +177,10 @@ class ComposerStaticInitb63d3db2f953e25a00b43798315441a7
         ),
         'C' => 
         array (
+            'Cviebrock\\EloquentSluggable\\' => 28,
             'Cron\\' => 5,
             'Codebyray\\ReviewRateable\\' => 25,
+            'Cocur\\Slugify\\' => 14,
             'Cmgmyr\\Messenger\\' => 17,
             'Carbon\\' => 7,
             'Canvas\\' => 7,
@@ -538,6 +540,10 @@ class ComposerStaticInitb63d3db2f953e25a00b43798315441a7
         array (
             0 => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy',
         ),
+        'Cviebrock\\EloquentSluggable\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/cviebrock/eloquent-sluggable/src',
+        ),
         'Cron\\' => 
         array (
             0 => __DIR__ . '/..' . '/dragonmantank/cron-expression/src/Cron',
@@ -545,6 +551,10 @@ class ComposerStaticInitb63d3db2f953e25a00b43798315441a7
         'Codebyray\\ReviewRateable\\' => 
         array (
             0 => __DIR__ . '/..' . '/sundarocs/laravel-review-rateable/src',
+        ),
+        'Cocur\\Slugify\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/cocur/slugify/src',
         ),
         'Cmgmyr\\Messenger\\' => 
         array (
@@ -620,6 +630,7 @@ class ComposerStaticInitb63d3db2f953e25a00b43798315441a7
         'App\\Attribute' => __DIR__ . '/../..' . '/app/Attribute.php',
         'App\\BlogPost' => __DIR__ . '/../..' . '/app/BlogPost.php',
         'App\\Category' => __DIR__ . '/../..' . '/app/Category.php',
+        'App\\CategoryItem' => __DIR__ . '/../..' . '/app/CategoryItem.php',
         'App\\City' => __DIR__ . '/../..' . '/app/City.php',
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\Country' => __DIR__ . '/../..' . '/app/Country.php',
@@ -720,6 +731,7 @@ class ComposerStaticInitb63d3db2f953e25a00b43798315441a7
         'App\\Providers\\RouteServiceProvider' => __DIR__ . '/../..' . '/app/Providers/RouteServiceProvider.php',
         'App\\Providers\\ViewServiceProvider' => __DIR__ . '/../..' . '/app/Providers/ViewServiceProvider.php',
         'App\\RazorpayWebhookLog' => __DIR__ . '/../..' . '/app/RazorpayWebhookLog.php',
+        'App\\Review' => __DIR__ . '/../..' . '/app/Review.php',
         'App\\Role' => __DIR__ . '/../..' . '/app/Role.php',
         'App\\Setting' => __DIR__ . '/../..' . '/app/Setting.php',
         'App\\SettingBankTransfer' => __DIR__ . '/../..' . '/app/SettingBankTransfer.php',
@@ -1659,6 +1671,25 @@ class ComposerStaticInitb63d3db2f953e25a00b43798315441a7
         'Cmgmyr\\Messenger\\Models\\Participant' => __DIR__ . '/..' . '/cmgmyr/messenger/src/Models/Participant.php',
         'Cmgmyr\\Messenger\\Models\\Thread' => __DIR__ . '/..' . '/cmgmyr/messenger/src/Models/Thread.php',
         'Cmgmyr\\Messenger\\Traits\\Messagable' => __DIR__ . '/..' . '/cmgmyr/messenger/src/Traits/Messagable.php',
+        'Cocur\\Slugify\\Bridge\\Laravel\\SlugifyFacade' => __DIR__ . '/..' . '/cocur/slugify/src/Bridge/Laravel/SlugifyFacade.php',
+        'Cocur\\Slugify\\Bridge\\Laravel\\SlugifyServiceProvider' => __DIR__ . '/..' . '/cocur/slugify/src/Bridge/Laravel/SlugifyServiceProvider.php',
+        'Cocur\\Slugify\\Bridge\\Latte\\SlugifyHelper' => __DIR__ . '/..' . '/cocur/slugify/src/Bridge/Latte/SlugifyHelper.php',
+        'Cocur\\Slugify\\Bridge\\League\\SlugifyServiceProvider' => __DIR__ . '/..' . '/cocur/slugify/src/Bridge/League/SlugifyServiceProvider.php',
+        'Cocur\\Slugify\\Bridge\\Nette\\SlugifyExtension' => __DIR__ . '/..' . '/cocur/slugify/src/Bridge/Nette/SlugifyExtension.php',
+        'Cocur\\Slugify\\Bridge\\Plum\\SlugifyConverter' => __DIR__ . '/..' . '/cocur/slugify/src/Bridge/Plum/SlugifyConverter.php',
+        'Cocur\\Slugify\\Bridge\\Symfony\\CocurSlugifyBundle' => __DIR__ . '/..' . '/cocur/slugify/src/Bridge/Symfony/CocurSlugifyBundle.php',
+        'Cocur\\Slugify\\Bridge\\Symfony\\CocurSlugifyExtension' => __DIR__ . '/..' . '/cocur/slugify/src/Bridge/Symfony/CocurSlugifyExtension.php',
+        'Cocur\\Slugify\\Bridge\\Symfony\\Configuration' => __DIR__ . '/..' . '/cocur/slugify/src/Bridge/Symfony/Configuration.php',
+        'Cocur\\Slugify\\Bridge\\Twig\\SlugifyExtension' => __DIR__ . '/..' . '/cocur/slugify/src/Bridge/Twig/SlugifyExtension.php',
+        'Cocur\\Slugify\\Bridge\\ZF2\\Module' => __DIR__ . '/..' . '/cocur/slugify/src/Bridge/ZF2/Module.php',
+        'Cocur\\Slugify\\Bridge\\ZF2\\SlugifyService' => __DIR__ . '/..' . '/cocur/slugify/src/Bridge/ZF2/SlugifyService.php',
+        'Cocur\\Slugify\\Bridge\\ZF2\\SlugifyViewHelper' => __DIR__ . '/..' . '/cocur/slugify/src/Bridge/ZF2/SlugifyViewHelper.php',
+        'Cocur\\Slugify\\Bridge\\ZF2\\SlugifyViewHelperFactory' => __DIR__ . '/..' . '/cocur/slugify/src/Bridge/ZF2/SlugifyViewHelperFactory.php',
+        'Cocur\\Slugify\\RuleProvider\\DefaultRuleProvider' => __DIR__ . '/..' . '/cocur/slugify/src/RuleProvider/DefaultRuleProvider.php',
+        'Cocur\\Slugify\\RuleProvider\\FileRuleProvider' => __DIR__ . '/..' . '/cocur/slugify/src/RuleProvider/FileRuleProvider.php',
+        'Cocur\\Slugify\\RuleProvider\\RuleProviderInterface' => __DIR__ . '/..' . '/cocur/slugify/src/RuleProvider/RuleProviderInterface.php',
+        'Cocur\\Slugify\\Slugify' => __DIR__ . '/..' . '/cocur/slugify/src/Slugify.php',
+        'Cocur\\Slugify\\SlugifyInterface' => __DIR__ . '/..' . '/cocur/slugify/src/SlugifyInterface.php',
         'Codebyray\\ReviewRateable\\Contracts\\ReviewRateable' => __DIR__ . '/..' . '/sundarocs/laravel-review-rateable/src/Contracts/ReviewRateable.php',
         'Codebyray\\ReviewRateable\\Models\\Rating' => __DIR__ . '/..' . '/sundarocs/laravel-review-rateable/src/Models/Rating.php',
         'Codebyray\\ReviewRateable\\ReviewRateableServiceProvider' => __DIR__ . '/..' . '/sundarocs/laravel-review-rateable/src/ReviewRateableServiceProvider.php',
@@ -1673,6 +1704,11 @@ class ComposerStaticInitb63d3db2f953e25a00b43798315441a7
         'Cron\\HoursField' => __DIR__ . '/..' . '/dragonmantank/cron-expression/src/Cron/HoursField.php',
         'Cron\\MinutesField' => __DIR__ . '/..' . '/dragonmantank/cron-expression/src/Cron/MinutesField.php',
         'Cron\\MonthField' => __DIR__ . '/..' . '/dragonmantank/cron-expression/src/Cron/MonthField.php',
+        'Cviebrock\\EloquentSluggable\\ServiceProvider' => __DIR__ . '/..' . '/cviebrock/eloquent-sluggable/src/ServiceProvider.php',
+        'Cviebrock\\EloquentSluggable\\Services\\SlugService' => __DIR__ . '/..' . '/cviebrock/eloquent-sluggable/src/Services/SlugService.php',
+        'Cviebrock\\EloquentSluggable\\Sluggable' => __DIR__ . '/..' . '/cviebrock/eloquent-sluggable/src/Sluggable.php',
+        'Cviebrock\\EloquentSluggable\\SluggableObserver' => __DIR__ . '/..' . '/cviebrock/eloquent-sluggable/src/SluggableObserver.php',
+        'Cviebrock\\EloquentSluggable\\SluggableScopeHelpers' => __DIR__ . '/..' . '/cviebrock/eloquent-sluggable/src/SluggableScopeHelpers.php',
         'DatabaseSeeder' => __DIR__ . '/../..' . '/database/seeds/DatabaseSeeder.php',
         'DeepCopy\\DeepCopy' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/DeepCopy.php',
         'DeepCopy\\Exception\\CloneException' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/Exception/CloneException.php',

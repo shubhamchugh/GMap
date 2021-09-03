@@ -23,7 +23,7 @@ $site_global_settings->setting_site_language]) !!}
 <!-- Display on xl -->
 @if(!empty($item->item_image) && !empty($item->item_image_blur))
 <div class="site-blocks-cover inner-page-cover overlay d-none d-xl-flex"
-    style="background-image: url(https://s3.us-west-1.wasabisys.com/testa/blur/{{ $item->item_image_blur }});"
+    style="background-image: url(https://s3.us-west-1.wasabisys.com/pestcontrolgooglemap/blur/{{ $item->item_image_blur }});"
     data-aos="fade" data-stellar-background-ratio="0.5">
     @else
     <div class="site-blocks-cover inner-page-cover overlay d-none d-xl-flex"
@@ -35,11 +35,11 @@ $site_global_settings->setting_site_language]) !!}
 
                 <div class="col-lg-2 col-md-2" data-aos="fade-up" data-aos-delay="400">
                     @if(!empty($item->item_image_tiny))
-                    <img src="https://s3.us-west-1.wasabisys.com/testa/tiny/{{ $item->item_image_tiny }}" alt="Image"
-                        class="img-fluid rounded">
+                    <img src="https://s3.us-west-1.wasabisys.com/{{ config('app.WASABI_BUCKET')}}/tiny/{{ $item->item_image_tiny }}"
+                        alt="Image" class="img-fluid rounded">
                     @elseif(!empty($item->item_image))
-                    <img src="https://s3.us-west-1.wasabisys.com/testa/original/{{ $item->item_image  }}" alt="Image"
-                        class="img-fluid rounded">
+                    <img src="https://s3.us-west-1.wasabisys.com/{{ config('app.WASABI_BUCKET')}}/original/{{ $item->item_image  }}"
+                        alt="Image" class="img-fluid rounded">
                     @else
                     <img src="{{ asset('frontend/images/placeholder/full_item_feature_image_tiny.webp') }}" alt="Image"
                         class="img-fluid rounded">
@@ -173,12 +173,12 @@ $site_global_settings->setting_site_language]) !!}
                 </div>
                 <div class="col-lg-3 col-md-5 pl-0 pr-0 item-cover-contact-section" data-aos="fade-up"
                     data-aos-delay="400">
-                    @if(!empty($item->item_phone))
+                    @if(!empty($item->item_phone) && $item->item_phone != "Not Available")
                     <h3><i class="fas fa-phone-alt"></i> {{ $item->item_phone }}</h3>
                     @endif
                     <p>
-                        @if(!empty($item->item_website))
-                        <a class="mr-1" href="{{ $item->item_website }}" target="_blank"
+                        @if(!empty($item->item_website) && $item->item_website != "Not Available")
+                        <a class="mr-1" href="http://{{ $item->item_website }}" target="_blank"
                             rel="nofollow">{{ $item->item_website }}</i></a>
                         @endif
 
@@ -205,7 +205,7 @@ $site_global_settings->setting_site_language]) !!}
     <!-- Display on lg, md -->
     @if(!empty($item->item_image) && !empty($item->item_image_blur))
     <div class="site-blocks-cover inner-page-cover overlay d-none d-md-flex d-lg-flex d-xl-none"
-        style="background-image: url({{ Storage::disk('public')->url('item/' . $item->item_image_blur) }});"
+        style="background-image: url(https://s3.us-west-1.wasabisys.com/pestcontrolgooglemap/blur/{{ $item->item_image_blur }});"
         data-aos="fade" data-stellar-background-ratio="0.5">
         @else
         <div class="site-blocks-cover inner-page-cover overlay d-none d-md-flex d-lg-flex d-xl-none"
@@ -216,11 +216,11 @@ $site_global_settings->setting_site_language]) !!}
                 <div class="row align-items-center item-blocks-cover">
                     <div class="col-lg-2 col-md-3" data-aos="fade-up" data-aos-delay="400">
                         @if(!empty($item->item_image_tiny))
-                        <img src="{{ Storage::disk('public')->url('item/' . $item->item_image_tiny) }}" alt="Image"
-                            class="img-fluid rounded">
+                        <img src="https://s3.us-west-1.wasabisys.com/{{ config('app.WASABI_BUCKET')}}/tiny/{{ $item->item_image_tiny }}"
+                            alt="Image" class="img-fluid rounded">
                         @elseif(!empty($item->item_image))
-                        <img src="{{ Storage::disk('public')->url('item/' . $item->item_image) }}" alt="Image"
-                            class="img-fluid rounded">
+                        <img src="https://s3.us-west-1.wasabisys.com/{{ config('app.WASABI_BUCKET')}}/original/{{ $item->item_image  }}"
+                            alt="Image" class="img-fluid rounded">
                         @else
                         <img src="{{ asset('frontend/images/placeholder/full_item_feature_image_tiny.webp') }}"
                             alt="Image" class="img-fluid rounded">
@@ -383,7 +383,7 @@ $site_global_settings->setting_site_language]) !!}
         <!-- Display on sm and xs -->
         @if(!empty($item->item_image) && !empty($item->item_image_blur))
         <div class="site-blocks-cover site-blocks-cover-sm inner-page-cover overlay d-md-none"
-            style="background-image: url({{ Storage::disk('public')->url('item/' . $item->item_image_blur) }});"
+            style="background-image: url(https://s3.us-west-1.wasabisys.com/pestcontrolgooglemap/blur/{{ $item->item_image_blur }});"
             data-aos="fade" data-stellar-background-ratio="0.5">
             @else
             <div class="site-blocks-cover site-blocks-cover-sm inner-page-cover overlay d-md-none"
@@ -794,10 +794,10 @@ $site_global_settings->setting_site_language]) !!}
                                         $item_galleries = $item->galleries()->get();
                                         @endphp
                                         @foreach($item_galleries as $galleries_key => $gallery)
-                                        <a href="https://s3.us-west-1.wasabisys.com/testa/gallery/{{  $gallery->item_image_gallery_name }}"
+                                        <a href="https://s3.us-west-1.wasabisys.com/{{ config('app.WASABI_BUCKET')}}/gallery/{{  $gallery->item_image_gallery_name }}"
                                             rel="item-image-gallery-thumb">
                                             <img alt="Image"
-                                                src="https://s3.us-west-1.wasabisys.com/testa/galleryThumbnail/{{ $gallery->item_image_gallery_name }}" />
+                                                src="https://s3.us-west-1.wasabisys.com/{{ config('app.WASABI_BUCKET')}}/galleryThumbnail/{{ $gallery->item_image_gallery_name }}" />
                                         </a>
                                         @endforeach
                                     </div>
@@ -808,7 +808,7 @@ $site_global_settings->setting_site_language]) !!}
                                         <img src="{{ asset('frontend/images/placeholder/full_item_feature_image.webp') }}"
                                             alt="Image" class="img-fluid rounded">
                                         @else
-                                        <img src="{{ Storage::disk('public')->url('item/' . $item->item_image) }}"
+                                        <img src="https://s3.us-west-1.wasabisys.com/{{ config('app.WASABI_BUCKET')}}/original/{{ $item->item_image  }}"
                                             alt="Image" class="img-fluid rounded">
                                         @endif
                                     </div>
@@ -1709,7 +1709,7 @@ $site_global_settings->setting_site_language]) !!}
                                                     <img src="{{ asset('frontend/images/placeholder/profile-'. intval($review->author_id % 10) . '.webp') }}"
                                                         alt="Image" class="img-fluid rounded-circle">
                                                     @else
-                                                    <img src="https://s3.us-west-1.wasabisys.com/testa/profile/{{  \App\User::find($review->author_id)->user_image }}"
+                                                    <img src="https://s3.us-west-1.wasabisys.com/{{ config('app.WASABI_BUCKET')}}/profile/{{  \App\User::find($review->author_id)->user_image }}"
                                                         alt="{{ \App\User::find($review->author_id)->name }}"
                                                         class="img-fluid rounded-circle">
                                                     @endif
@@ -1781,958 +1781,304 @@ $site_global_settings->setting_site_language]) !!}
                                                 </div>
                                             </div>
 
-                                            @if(!empty($review->title))
+                                            {{-- @if(!empty($review->title))
                                             <div class="row mb-2">
                                                 <div class="col-md-12">
                                                     <span class="text-black">{{ $review->title }}</span>
-                                                </div>
-                                            </div>
-                                            @endif
-                                            <div class="row mb-1">
-                                                <div class="col-md-12">
-                                                    <p>{!! clean(nl2br($review->body), array('HTML.Allowed' =>
-                                                        'b,strong,i,em,u,ul,ol,li,p,br')) !!}</p>
-                                                </div>
-                                            </div>
+                                        </div>
+                                    </div>
+                                    @endif --}}
+                                    <div class="row mb-1">
+                                        <div class="col-md-12">
+                                            <p>{!! clean(nl2br($review->body), array('HTML.Allowed' =>
+                                                'b,strong,i,em,u,ul,ol,li,p,br')) !!}</p>
+                                        </div>
+                                    </div>
 
-                                            @if($item->reviewGalleryCountByReviewId($review->id))
-                                            <div class="row mb-1">
-                                                <div class="col-md-12" id="review-image-gallery-{{ $review->id }}">
-                                                    @foreach($item->getReviewGalleriesByReviewId($review->id) as $key_1
-                                                    => $review_image_gallery)
-                                                    <a href="{{ Storage::disk('public')->url('item/review/' . $review_image_gallery->review_image_gallery_name) }}"
-                                                        rel="review-image-gallery-thumb{{ $review->id }}">
-                                                        <img alt="Image"
-                                                            src="{{ Storage::disk('public')->url('item/review/' . $review_image_gallery->review_image_gallery_thumb_name) }}" />
-                                                    </a>
-                                                    @endforeach
-                                                </div>
-                                            </div>
+                                    @if($item->reviewGalleryCountByReviewId($review->id))
+                                    <div class="row mb-1">
+                                        <div class="col-md-12" id="review-image-gallery-{{ $review->id }}">
+                                            @foreach($item->getReviewGalleriesByReviewId($review->id) as $key_1
+                                            => $review_image_gallery)
+                                            <a href="{{ Storage::disk('public')->url('item/review/' . $review_image_gallery->review_image_gallery_name) }}"
+                                                rel="review-image-gallery-thumb{{ $review->id }}">
+                                                <img alt="Image"
+                                                    src="{{ Storage::disk('public')->url('item/review/' . $review_image_gallery->review_image_gallery_thumb_name) }}" />
+                                            </a>
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                    @endif
+
+                                    <div class="row">
+                                        <div class="col-md-12 text-right">
+                                            <span
+                                                class="review font-size-13">{{ __('review.backend.posted-at') . ' ' . \Carbon\Carbon::parse($review->created_at)->diffForHumans() }}</span>
+                                            @if($review->created_at != $review->updated_at)
+                                            <span
+                                                class="review font-size-13">{{ __('review.backend.updated-at') . ' ' . \Carbon\Carbon::parse($review->updated_at)->diffForHumans() }}</span>
                                             @endif
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <hr>
+                            @endforeach
+                            @endif
+                        </div>
+                    </div>
+
+                    <!-- start item section after reviews -->
+                    @if($item_sections_after_reviews->count() > 0)
+                    <div class="row mb-3">
+                        <div class="col-12">
+                            @foreach($item_sections_after_reviews as $item_sections_after_reviews_key =>
+                            $after_reviews_section)
+                            <h4 class="h5 mb-4 text-black">{{ $after_reviews_section->item_section_title }}</h4>
+
+                            @php
+                            $after_reviews_section_collections =
+                            $after_reviews_section->itemSectionCollections()->orderBy('item_section_collection_order')->get();
+                            @endphp
+
+                            @if($after_reviews_section_collections->count() > 0)
+                            <div class="row">
+                                @foreach($after_reviews_section_collections as
+                                $after_reviews_section_collections_key => $after_reviews_section_collection)
+                                <div class="col-md-6 col-sm-12 mb-3">
+
+                                    @if($after_reviews_section_collection->item_section_collection_collectible_type
+                                    == \App\ItemSectionCollection::COLLECTIBLE_TYPE_PRODUCT)
+                                    @php
+                                    $find_product_after_reviews =
+                                    \App\Product::find($after_reviews_section_collection->item_section_collection_collectible_id);
+                                    @endphp
+                                    <div class="row align-items-center border-right">
+                                        <div class="col-md-5 col-4">
+                                            <a
+                                                href="{{ route('page.product', ['item_slug' => $item->item_slug, 'product_slug' => $find_product_after_reviews->product_slug]) }}">
+                                                @if(empty($find_product_after_reviews->product_image_small))
+                                                <img src="{{ asset('frontend/images/placeholder/full_item_feature_image_tiny.webp') }}"
+                                                    alt="Image" class="img-fluid rounded">
+                                                @else
+                                                <img src="{{ Storage::disk('public')->url('product/' . $find_product_after_reviews->product_image_small) }}"
+                                                    alt="Image" class="img-fluid rounded">
+                                                @endif
+                                            </a>
+                                        </div>
+                                        <div class="pl-0 col-md-7 col-8">
 
                                             <div class="row">
-                                                <div class="col-md-12 text-right">
+                                                <div class="col-12">
                                                     <span
-                                                        class="review font-size-13">{{ __('review.backend.posted-at') . ' ' . \Carbon\Carbon::parse($review->created_at)->diffForHumans() }}</span>
-                                                    @if($review->created_at != $review->updated_at)
+                                                        class="text-black">{{ str_limit($find_product_after_reviews->product_name, 20) }}</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <span>{{ str_limit($find_product_after_reviews->product_description, 40) }}</span>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    @if(!empty($find_product_after_reviews->product_price))
                                                     <span
-                                                        class="review font-size-13">{{ __('review.backend.updated-at') . ' ' . \Carbon\Carbon::parse($review->updated_at)->diffForHumans() }}</span>
+                                                        class="text-black">{{ $site_global_settings->setting_product_currency_symbol . number_format($find_product_after_reviews->product_price, 2) }}</span>
                                                     @endif
                                                 </div>
                                             </div>
 
-                                        </div>
-                                    </div>
-                                    <hr>
-                                    @endforeach
-                                    @endif
-                                </div>
-                            </div>
-
-                            <!-- start item section after reviews -->
-                            @if($item_sections_after_reviews->count() > 0)
-                            <div class="row mb-3">
-                                <div class="col-12">
-                                    @foreach($item_sections_after_reviews as $item_sections_after_reviews_key =>
-                                    $after_reviews_section)
-                                    <h4 class="h5 mb-4 text-black">{{ $after_reviews_section->item_section_title }}</h4>
-
-                                    @php
-                                    $after_reviews_section_collections =
-                                    $after_reviews_section->itemSectionCollections()->orderBy('item_section_collection_order')->get();
-                                    @endphp
-
-                                    @if($after_reviews_section_collections->count() > 0)
-                                    <div class="row">
-                                        @foreach($after_reviews_section_collections as
-                                        $after_reviews_section_collections_key => $after_reviews_section_collection)
-                                        <div class="col-md-6 col-sm-12 mb-3">
-
-                                            @if($after_reviews_section_collection->item_section_collection_collectible_type
-                                            == \App\ItemSectionCollection::COLLECTIBLE_TYPE_PRODUCT)
-                                            @php
-                                            $find_product_after_reviews =
-                                            \App\Product::find($after_reviews_section_collection->item_section_collection_collectible_id);
-                                            @endphp
-                                            <div class="row align-items-center border-right">
-                                                <div class="col-md-5 col-4">
-                                                    <a
+                                            <div class="row mt-1">
+                                                <div class="col-12">
+                                                    <a class="btn btn-sm btn-outline-primary btn-block rounded"
                                                         href="{{ route('page.product', ['item_slug' => $item->item_slug, 'product_slug' => $find_product_after_reviews->product_slug]) }}">
-                                                        @if(empty($find_product_after_reviews->product_image_small))
-                                                        <img src="{{ asset('frontend/images/placeholder/full_item_feature_image_tiny.webp') }}"
-                                                            alt="Image" class="img-fluid rounded">
-                                                        @else
-                                                        <img src="{{ Storage::disk('public')->url('product/' . $find_product_after_reviews->product_image_small) }}"
-                                                            alt="Image" class="img-fluid rounded">
-                                                        @endif
+                                                        {{ __('item_section.read-more') }}
                                                     </a>
                                                 </div>
-                                                <div class="pl-0 col-md-7 col-8">
-
-                                                    <div class="row">
-                                                        <div class="col-12">
-                                                            <span
-                                                                class="text-black">{{ str_limit($find_product_after_reviews->product_name, 20) }}</span>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="row">
-                                                        <div class="col-12">
-                                                            <span>{{ str_limit($find_product_after_reviews->product_description, 40) }}</span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col-12">
-                                                            @if(!empty($find_product_after_reviews->product_price))
-                                                            <span
-                                                                class="text-black">{{ $site_global_settings->setting_product_currency_symbol . number_format($find_product_after_reviews->product_price, 2) }}</span>
-                                                            @endif
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="row mt-1">
-                                                        <div class="col-12">
-                                                            <a class="btn btn-sm btn-outline-primary btn-block rounded"
-                                                                href="{{ route('page.product', ['item_slug' => $item->item_slug, 'product_slug' => $find_product_after_reviews->product_slug]) }}">
-                                                                {{ __('item_section.read-more') }}
-                                                            </a>
-                                                        </div>
-                                                    </div>
-
-
-                                                </div>
                                             </div>
-                                            @endif
 
-                                        </div>
-                                        @endforeach
-                                    </div>
-                                    @endif
-                                    <hr>
-                                    @endforeach
-                                </div>
-                            </div>
-                            @endif
-                            <!-- end item section after reviews -->
 
-                            @if($ads_before_comments->count() > 0)
-                            @foreach($ads_before_comments as $ads_before_comments_key => $ad_before_comments)
-                            <div class="row mb-3">
-                                @if($ad_before_comments->advertisement_alignment ==
-                                \App\Advertisement::AD_ALIGNMENT_LEFT)
-                                <div class="col-12 text-left">
-                                    <div>
-                                        {!! $ad_before_comments->advertisement_code !!}
-                                    </div>
-                                </div>
-                                @elseif($ad_before_comments->advertisement_alignment ==
-                                \App\Advertisement::AD_ALIGNMENT_CENTER)
-                                <div class="col-12 text-center">
-                                    <div>
-                                        {!! $ad_before_comments->advertisement_code !!}
-                                    </div>
-                                </div>
-                                @elseif($ad_before_comments->advertisement_alignment ==
-                                \App\Advertisement::AD_ALIGNMENT_RIGHT)
-                                <div class="col-12 text-right">
-                                    <div>
-                                        {!! $ad_before_comments->advertisement_code !!}
-                                    </div>
-                                </div>
-                                @endif
-
-                            </div>
-                            @endforeach
-                            @endif
-
-                            <div class="row mb-3">
-                                <div class="col-12">
-                                    <h4 class="h5 mb-4 text-black">{{ __('frontend.item.comments') }}</h4>
-
-                                    @comments([
-                                    'model' => $item,
-                                    'approved' => true,
-                                    'perPage' => 10
-                                    ])
-
-                                    <hr>
-                                </div>
-                            </div>
-
-                            <!-- start item section after comments -->
-                            @if($item_sections_after_comments->count() > 0)
-                            <div class="row mb-3">
-                                <div class="col-12">
-                                    @foreach($item_sections_after_comments as $item_sections_after_comments_key =>
-                                    $after_comments_section)
-                                    <h4 class="h5 mb-4 text-black">{{ $after_comments_section->item_section_title }}
-                                    </h4>
-
-                                    @php
-                                    $after_comments_section_collections =
-                                    $after_comments_section->itemSectionCollections()->orderBy('item_section_collection_order')->get();
-                                    @endphp
-
-                                    @if($after_comments_section_collections->count() > 0)
-                                    <div class="row">
-                                        @foreach($after_comments_section_collections as
-                                        $after_comments_section_collections_key => $after_comments_section_collection)
-                                        <div class="col-md-6 col-sm-12 mb-3">
-
-                                            @if($after_comments_section_collection->item_section_collection_collectible_type
-                                            == \App\ItemSectionCollection::COLLECTIBLE_TYPE_PRODUCT)
-                                            @php
-                                            $find_product_after_comments =
-                                            \App\Product::find($after_comments_section_collection->item_section_collection_collectible_id);
-                                            @endphp
-                                            <div class="row align-items-center border-right">
-                                                <div class="col-md-5 col-4">
-                                                    <a
-                                                        href="{{ route('page.product', ['item_slug' => $item->item_slug, 'product_slug' => $find_product_after_comments->product_slug]) }}">
-                                                        @if(empty($find_product_after_comments->product_image_small))
-                                                        <img src="{{ asset('frontend/images/placeholder/full_item_feature_image_tiny.webp') }}"
-                                                            alt="Image" class="img-fluid rounded">
-                                                        @else
-                                                        <img src="{{ Storage::disk('public')->url('product/' . $find_product_after_comments->product_image_small) }}"
-                                                            alt="Image" class="img-fluid rounded">
-                                                        @endif
-                                                    </a>
-                                                </div>
-                                                <div class="pl-0 col-md-7 col-8">
-
-                                                    <div class="row">
-                                                        <div class="col-12">
-                                                            <span
-                                                                class="text-black">{{ str_limit($find_product_after_comments->product_name, 20) }}</span>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="row">
-                                                        <div class="col-12">
-                                                            <span>{{ str_limit($find_product_after_comments->product_description, 40) }}</span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col-12">
-                                                            @if(!empty($find_product_after_comments->product_price))
-                                                            <span
-                                                                class="text-black">{{ $site_global_settings->setting_product_currency_symbol . number_format($find_product_after_comments->product_price, 2) }}</span>
-                                                            @endif
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="row mt-1">
-                                                        <div class="col-12">
-                                                            <a class="btn btn-sm btn-outline-primary btn-block rounded"
-                                                                href="{{ route('page.product', ['item_slug' => $item->item_slug, 'product_slug' => $find_product_after_comments->product_slug]) }}">
-                                                                {{ __('item_section.read-more') }}
-                                                            </a>
-                                                        </div>
-                                                    </div>
-
-                                                </div>
-                                            </div>
-                                            @endif
-
-                                        </div>
-                                        @endforeach
-                                    </div>
-                                    @endif
-                                    <hr>
-                                    @endforeach
-                                </div>
-                            </div>
-                            @endif
-                            <!-- end item section after comments -->
-
-                            @if($ads_before_share->count() > 0)
-                            @foreach($ads_before_share as $ads_before_share_key => $ad_before_share)
-                            <div class="row mb-3">
-                                @if($ad_before_share->advertisement_alignment == \App\Advertisement::AD_ALIGNMENT_LEFT)
-                                <div class="col-12 text-left">
-                                    <div>
-                                        {!! $ad_before_share->advertisement_code !!}
-                                    </div>
-                                </div>
-                                @elseif($ad_before_share->advertisement_alignment ==
-                                \App\Advertisement::AD_ALIGNMENT_CENTER)
-                                <div class="col-12 text-center">
-                                    <div>
-                                        {!! $ad_before_share->advertisement_code !!}
-                                    </div>
-                                </div>
-                                @elseif($ad_before_share->advertisement_alignment ==
-                                \App\Advertisement::AD_ALIGNMENT_RIGHT)
-                                <div class="col-12 text-right">
-                                    <div>
-                                        {!! $ad_before_share->advertisement_code !!}
-                                    </div>
-                                </div>
-                                @endif
-
-                            </div>
-                            @endforeach
-                            @endif
-
-                            <div class="row mb-3">
-                                <div class="col-12">
-                                    <h4 class="h5 mb-4 text-black">{{ __('frontend.item.share') }}</h4>
-                                    <div class="row">
-                                        <div class="col-12">
-
-                                            <!-- Create link with share to Facebook -->
-                                            <a class="btn btn-primary text-white btn-sm rounded mb-2 btn-facebook"
-                                                href="" data-social="facebook">
-                                                <i class="fab fa-facebook-f"></i>
-                                                {{ __('social_share.facebook') }}
-                                            </a>
-
-                                            <a class="btn btn-primary text-white btn-sm rounded mb-2 btn-twitter"
-                                                href="" data-social="twitter">
-                                                <i class="fab fa-twitter"></i>
-                                                {{ __('social_share.twitter') }}
-                                            </a>
-
-                                            <a class="btn btn-primary text-white btn-sm rounded mb-2 btn-linkedin"
-                                                href="" data-social="linkedin">
-                                                <i class="fab fa-linkedin-in"></i>
-                                                {{ __('social_share.linkedin') }}
-                                            </a>
-                                            <a class="btn btn-primary text-white btn-sm rounded mb-2 btn-blogger"
-                                                href="" data-social="blogger">
-                                                <i class="fab fa-blogger-b"></i>
-                                                {{ __('social_share.blogger') }}
-                                            </a>
-
-                                            <a class="btn btn-primary text-white btn-sm rounded mb-2 btn-pinterest"
-                                                href="" data-social="pinterest">
-                                                <i class="fab fa-pinterest-p"></i>
-                                                {{ __('social_share.pinterest') }}
-                                            </a>
-                                            <a class="btn btn-primary text-white btn-sm rounded mb-2 btn-evernote"
-                                                href="" data-social="evernote">
-                                                <i class="fab fa-evernote"></i>
-                                                {{ __('social_share.evernote') }}
-                                            </a>
-                                            <a class="btn btn-primary text-white btn-sm rounded mb-2 btn-reddit" href=""
-                                                data-social="reddit">
-                                                <i class="fab fa-reddit-alien"></i>
-                                                {{ __('social_share.reddit') }}
-                                            </a>
-                                            <a class="btn btn-primary text-white btn-sm rounded mb-2 btn-buffer" href=""
-                                                data-social="buffer">
-                                                <i class="fab fa-buffer"></i>
-                                                {{ __('social_share.buffer') }}
-                                            </a>
-                                            <a class="btn btn-primary text-white btn-sm rounded mb-2 btn-wordpress"
-                                                href="" data-social="wordpress">
-                                                <i class="fab fa-wordpress-simple"></i>
-                                                {{ __('social_share.wordpress') }}
-                                            </a>
-                                            <a class="btn btn-primary text-white btn-sm rounded mb-2 btn-weibo" href=""
-                                                data-social="weibo">
-                                                <i class="fab fa-weibo"></i>
-                                                {{ __('social_share.weibo') }}
-                                            </a>
-                                            <a class="btn btn-primary text-white btn-sm rounded mb-2 btn-skype" href=""
-                                                data-social="skype">
-                                                <i class="fab fa-skype"></i>
-                                                {{ __('social_share.skype') }}
-                                            </a>
-                                            <a class="btn btn-primary text-white btn-sm rounded mb-2 btn-telegram"
-                                                href="" data-social="telegram">
-                                                <i class="fab fa-telegram-plane"></i>
-                                                {{ __('social_share.telegram') }}
-                                            </a>
-                                            <a class="btn btn-primary text-white btn-sm rounded mb-2 btn-viber" href=""
-                                                data-social="viber">
-                                                <i class="fab fa-viber"></i>
-                                                {{ __('social_share.viber') }}
-                                            </a>
-                                            <a class="btn btn-primary text-white btn-sm rounded mb-2 btn-whatsapp"
-                                                href="" data-social="whatsapp">
-                                                <i class="fab fa-whatsapp"></i>
-                                                {{ __('social_share.whatsapp') }}
-                                            </a>
-                                            <a class="btn btn-primary text-white btn-sm rounded mb-2 btn-wechat" href=""
-                                                data-social="wechat">
-                                                <i class="fab fa-weixin"></i>
-                                                {{ __('social_share.wechat') }}
-                                            </a>
-                                            <a class="btn btn-primary text-white btn-sm rounded mb-2 btn-line" href=""
-                                                data-social="line">
-                                                <i class="fab fa-line"></i>
-                                                {{ __('social_share.line') }}
-                                            </a>
-
-                                        </div>
-                                    </div>
-                                    <hr>
-                                </div>
-                            </div>
-
-                            @if($ads_after_share->count() > 0)
-                            @foreach($ads_after_share as $ads_after_share_key => $ad_after_share)
-                            <div class="row mb-3">
-                                @if($ad_after_share->advertisement_alignment == \App\Advertisement::AD_ALIGNMENT_LEFT)
-                                <div class="col-12 text-left">
-                                    <div>
-                                        {!! $ad_after_share->advertisement_code !!}
-                                    </div>
-                                </div>
-                                @elseif($ad_after_share->advertisement_alignment ==
-                                \App\Advertisement::AD_ALIGNMENT_CENTER)
-                                <div class="col-12 text-center">
-                                    <div>
-                                        {!! $ad_after_share->advertisement_code !!}
-                                    </div>
-                                </div>
-                                @elseif($ad_after_share->advertisement_alignment ==
-                                \App\Advertisement::AD_ALIGNMENT_RIGHT)
-                                <div class="col-12 text-right">
-                                    <div>
-                                        {!! $ad_after_share->advertisement_code !!}
-                                    </div>
-                                </div>
-                                @endif
-
-                            </div>
-                            @endforeach
-                            @endif
-
-                            <!-- start item section after share -->
-                            @if($item_sections_after_share->count() > 0)
-                            <div class="row mb-3">
-                                <div class="col-12">
-                                    @foreach($item_sections_after_share as $item_sections_after_share_key =>
-                                    $after_share_section)
-                                    <h4 class="h5 mb-4 text-black">{{ $after_share_section->item_section_title }}</h4>
-
-                                    @php
-                                    $after_share_section_collections =
-                                    $after_share_section->itemSectionCollections()->orderBy('item_section_collection_order')->get();
-                                    @endphp
-
-                                    @if($after_share_section_collections->count() > 0)
-                                    <div class="row">
-                                        @foreach($after_share_section_collections as
-                                        $after_share_section_collections_key => $after_share_section_collection)
-                                        <div class="col-md-6 col-sm-12 mb-3">
-
-                                            @if($after_share_section_collection->item_section_collection_collectible_type
-                                            == \App\ItemSectionCollection::COLLECTIBLE_TYPE_PRODUCT)
-                                            @php
-                                            $find_product_after_share =
-                                            \App\Product::find($after_share_section_collection->item_section_collection_collectible_id);
-                                            @endphp
-                                            <div class="row align-items-center border-right">
-                                                <div class="col-md-5 col-4">
-                                                    <a
-                                                        href="{{ route('page.product', ['item_slug' => $item->item_slug, 'product_slug' => $find_product_after_share->product_slug]) }}">
-                                                        @if(empty($find_product_after_share->product_image_small))
-                                                        <img src="{{ asset('frontend/images/placeholder/full_item_feature_image_tiny.webp') }}"
-                                                            alt="Image" class="img-fluid rounded">
-                                                        @else
-                                                        <img src="{{ Storage::disk('public')->url('product/' . $find_product_after_share->product_image_small) }}"
-                                                            alt="Image" class="img-fluid rounded">
-                                                        @endif
-                                                    </a>
-                                                </div>
-                                                <div class="pl-0 col-md-7 col-8">
-
-                                                    <div class="row">
-                                                        <div class="col-12">
-                                                            <span
-                                                                class="text-black">{{ str_limit($find_product_after_share->product_name, 20) }}</span>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="row">
-                                                        <div class="col-12">
-                                                            <span>{{ str_limit($find_product_after_share->product_description, 40) }}</span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col-12">
-                                                            @if(!empty($find_product_after_share->product_price))
-                                                            <span
-                                                                class="text-black">{{ $site_global_settings->setting_product_currency_symbol . number_format($find_product_after_share->product_price, 2) }}</span>
-                                                            @endif
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="row mt-1">
-                                                        <div class="col-12">
-                                                            <a class="btn btn-sm btn-outline-primary btn-block rounded"
-                                                                href="{{ route('page.product', ['item_slug' => $item->item_slug, 'product_slug' => $find_product_after_share->product_slug]) }}">
-                                                                {{ __('item_section.read-more') }}
-                                                            </a>
-                                                        </div>
-                                                    </div>
-
-                                                </div>
-                                            </div>
-                                            @endif
-
-                                        </div>
-                                        @endforeach
-                                    </div>
-                                    @endif
-                                    <hr>
-                                    @endforeach
-                                </div>
-                            </div>
-                            @endif
-                            <!-- end item section after share -->
-
-                            @if(!$item_has_claimed)
-                            <div class="row pt-3 pb-3 pl-2 pr-2 border border-dark rounded bg-light align-items-center">
-                                <div class="col-sm-12 col-md-9 pr-0">
-                                    <h4 class="h5 text-black">{{ __('item_claim.claim-business') }}</h4>
-                                    <span>{{ __('item_claim.unclaimed-desc') }}</span>
-                                </div>
-                                <div class="col-sm-12 col-md-3 text-right">
-                                    @if(\Illuminate\Support\Facades\Auth::check() &&
-                                    \Illuminate\Support\Facades\Auth::user()->isAdmin())
-                                    <a class="btn btn-primary rounded text-white"
-                                        href="{{ route('admin.item-claims.create', ['item_slug' => $item->item_slug]) }}"
-                                        target="_blank">{{ __('item_claim.claim-business-button') }}</a>
-                                    @else
-                                    <a class="btn btn-primary rounded text-white"
-                                        href="{{ route('user.item-claims.create', ['item_slug' => $item->item_slug]) }}"
-                                        target="_blank">{{ __('item_claim.claim-business-button') }}</a>
-                                    @endif
-                                </div>
-                            </div>
-                            @endif
-
-                        </div>
-
-                        <div class="col-lg-3 ml-auto">
-
-                            <div class="pt-3">
-
-                                @if($ads_before_sidebar_content->count() > 0)
-                                @foreach($ads_before_sidebar_content as $ads_before_sidebar_content_key =>
-                                $ad_before_sidebar_content)
-                                <div class="row mb-5">
-                                    @if($ad_before_sidebar_content->advertisement_alignment ==
-                                    \App\Advertisement::AD_ALIGNMENT_LEFT)
-                                    <div class="col-12 text-left">
-                                        <div>
-                                            {!! $ad_before_sidebar_content->advertisement_code !!}
-                                        </div>
-                                    </div>
-                                    @elseif($ad_before_sidebar_content->advertisement_alignment ==
-                                    \App\Advertisement::AD_ALIGNMENT_CENTER)
-                                    <div class="col-12 text-center">
-                                        <div>
-                                            {!! $ad_before_sidebar_content->advertisement_code !!}
-                                        </div>
-                                    </div>
-                                    @elseif($ad_before_sidebar_content->advertisement_alignment ==
-                                    \App\Advertisement::AD_ALIGNMENT_RIGHT)
-                                    <div class="col-12 text-right">
-                                        <div>
-                                            {!! $ad_before_sidebar_content->advertisement_code !!}
                                         </div>
                                     </div>
                                     @endif
+
                                 </div>
                                 @endforeach
-                                @endif
-
-                                <div class="row mb-2 align-items-center">
-                                    <div class="col-12">
-                                        <h3 class="h5 text-black">{{ __('rating_summary.managed-by') }}</h3>
-                                    </div>
-                                </div>
-
-                                <div class="row align-items-center">
-                                    <div class="col-4">
-                                        @if(empty($item->user->user_image))
-                                        <img src="https://s3.us-west-1.wasabisys.com/testa/profile/{{ $item->user->user_image }}"
-                                            alt="Image" class="img-fluid rounded-circle">
-                                        @else
-
-                                        <img src="https://s3.us-west-1.wasabisys.com/testa/profile/{{ $item->user->user_image }}"
-                                            alt="{{ $item->user->name }}" class="img-fluid rounded-circle">
-                                        @endif
-                                    </div>
-                                    <div class="col-8 pl-0">
-                                        <span class="font-size-13">{{ $item->user->name }}</span><br />
-                                        <span
-                                            class="font-size-13">{{ __('frontend.item.posted') . ' ' . $item->created_at->diffForHumans() }}</span>
-                                    </div>
-                                </div>
-
-                                @if(\Illuminate\Support\Facades\Auth::check())
-                                @if(\Illuminate\Support\Facades\Auth::user()->id != $item->user_id)
-                                <div class="row mt-5 mb-2 align-items-center">
-                                    <div class="col-12">
-                                        <h3 class="h5 text-black">{{ __('backend.message.message-txt') }}</h3>
-                                    </div>
-                                </div>
-
-                                <div class="row mb-3">
-                                    <div class="col-12">
-                                        @if(\Illuminate\Support\Facades\Auth::user()->isAdmin())
-                                        <!-- message item owner contact form -->
-                                        <form method="POST" action="{{ route('admin.messages.store') }}" class="">
-                                            @csrf
-
-                                            <input type="hidden" name="recipient" value="{{ $item->user_id }}">
-                                            <input type="hidden" name="item" value="{{ $item->id }}">
-                                            <div class="form-group">
-                                                <input id="subject" type="text"
-                                                    class="form-control rounded @error('subject') is-invalid @enderror"
-                                                    name="subject" value="{{ old('subject') }}"
-                                                    placeholder="{{ __('backend.message.subject') }}">
-                                                @error('subject')
-                                                <span class="invalid-tooltip">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                                @enderror
-                                            </div>
-                                            <div class="form-group">
-                                                <textarea rows="6" id="message" type="text"
-                                                    class="form-control rounded @error('message') is-invalid @enderror"
-                                                    name="message"
-                                                    placeholder="{{ __('backend.message.message-txt') }}">{{ old('message') }}</textarea>
-                                                @error('message')
-                                                <span class="invalid-tooltip">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                                @enderror
-                                            </div>
-                                            <div class="form-group">
-                                                <button type="submit" class="btn btn-outline-primary btn-block rounded">
-                                                    {{ __('frontend.item.send-message') }}
-                                                </button>
-                                            </div>
-                                        </form>
-                                        @else
-                                        <!-- message item owner contact form -->
-                                        <form method="POST" action="{{ route('user.messages.store') }}" class="">
-                                            @csrf
-
-                                            <input type="hidden" name="recipient" value="{{ $item->user_id }}">
-                                            <input type="hidden" name="item" value="{{ $item->id }}">
-                                            <div class="form-group">
-                                                <input id="subject" type="text"
-                                                    class="form-control rounded @error('subject') is-invalid @enderror"
-                                                    name="subject" value="{{ old('subject') }}"
-                                                    placeholder="{{ __('backend.message.subject') }}">
-                                                @error('subject')
-                                                <span class="invalid-tooltip">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                                @enderror
-                                            </div>
-                                            <div class="form-group">
-                                                <textarea rows="6" id="message" type="text"
-                                                    class="form-control rounded @error('message') is-invalid @enderror"
-                                                    name="message"
-                                                    placeholder="{{ __('backend.message.message-txt') }}">{{ old('message') }}</textarea>
-                                                @error('message')
-                                                <span class="invalid-tooltip">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                                @enderror
-                                            </div>
-                                            <div class="form-group">
-                                                <button type="submit" class="btn btn-outline-primary btn-block rounded">
-                                                    {{ __('frontend.item.send-message') }}
-                                                </button>
-                                            </div>
-                                        </form>
-                                        @endif
-                                    </div>
-                                </div>
-
-                                @endif
-                                @else
-                                <div class="row mt-3 mb-5 align-items-center">
-                                    <div class="col-12">
-                                        <a class="btn btn-primary btn-block rounded text-white" href="#"
-                                            data-toggle="modal"
-                                            data-target="#itemLeadModal">{{ __('rating_summary.contact') }}</a>
-                                    </div>
-                                </div>
-                                @endif
-
-                                @include('frontend.partials.search.side')
-
-                                @if($ads_after_sidebar_content->count() > 0)
-                                @foreach($ads_after_sidebar_content as $ads_after_sidebar_content_key =>
-                                $ad_after_sidebar_content)
-                                <div class="row mt-5">
-                                    @if($ad_after_sidebar_content->advertisement_alignment ==
-                                    \App\Advertisement::AD_ALIGNMENT_LEFT)
-                                    <div class="col-12 text-left">
-                                        <div>
-                                            {!! $ad_after_sidebar_content->advertisement_code !!}
-                                        </div>
-                                    </div>
-                                    @elseif($ad_after_sidebar_content->advertisement_alignment ==
-                                    \App\Advertisement::AD_ALIGNMENT_CENTER)
-                                    <div class="col-12 text-center">
-                                        <div>
-                                            {!! $ad_after_sidebar_content->advertisement_code !!}
-                                        </div>
-                                    </div>
-                                    @elseif($ad_after_sidebar_content->advertisement_alignment ==
-                                    \App\Advertisement::AD_ALIGNMENT_RIGHT)
-                                    <div class="col-12 text-right">
-                                        <div>
-                                            {!! $ad_after_sidebar_content->advertisement_code !!}
-                                        </div>
-                                    </div>
-                                    @endif
-                                </div>
-                                @endforeach
-                                @endif
-
                             </div>
-
+                            @endif
+                            <hr>
+                            @endforeach
                         </div>
-
-                    </div>
-                </div>
-            </div>
-
-            @if($similar_items->count() > 0 || $nearby_items->count() > 0)
-            <div class="site-section bg-light">
-                <div class="container">
-
-                    @if($similar_items->count() > 0)
-                    <div class="row mb-4">
-                        <div class="col-md-7 text-left border-primary">
-                            <h2 class="font-weight-light text-primary">{{ __('frontend.item.similar-listings') }}</h2>
-                        </div>
-                    </div>
-                    <div class="row">
-
-                        @foreach($similar_items as $key => $similar_item)
-                        <div class="col-lg-6">
-                            <div class="d-block d-md-flex listing">
-                                <a href="{{ route('page.item', $similar_item->item_slug) }}" class="img d-block"
-                                    style="background-image: url({{ !empty($similar_item->item_image_small) ? Storage::disk('public')->url('item/' . $similar_item->item_image_small) : (!empty($similar_item->item_image) ? Storage::disk('public')->url('item/' . $similar_item->item_image) : asset('frontend/images/placeholder/full_item_feature_image_small.webp')) }})"></a>
-                                <div class="lh-content">
-
-                                    @foreach($similar_item->getAllCategories(\App\Item::ITEM_TOTAL_SHOW_CATEGORY) as
-                                    $key => $category)
-                                    <a href="{{ route('page.category', $category->category_slug) }}">
-                                        <span class="category">
-                                            @if(!empty($category->category_icon))
-                                            <i class="{{ $category->category_icon }}"></i>
-                                            @endif
-                                            {{ $category->category_name }}
-                                        </span>
-                                    </a>
-                                    @endforeach
-
-                                    @if($similar_item->allCategories()->count() > \App\Item::ITEM_TOTAL_SHOW_CATEGORY)
-                                    <span
-                                        class="category">{{ __('categories.and') . " " . strval($similar_item->allCategories()->count() - \App\Item::ITEM_TOTAL_SHOW_CATEGORY) . " " . __('categories.more') }}</span>
-                                    @endif
-
-                                    <h3 class="pt-2"><a
-                                            href="{{ route('page.item', $similar_item->item_slug) }}">{{ $similar_item->item_title }}</a>
-                                    </h3>
-
-                                    @if($similar_item->item_type == \App\Item::ITEM_TYPE_REGULAR)
-                                    <address>
-                                        <a
-                                            href="{{ route('page.city', ['state_slug'=>$similar_item->state->state_slug, 'city_slug'=>$similar_item->city->city_slug]) }}">{{ $similar_item->city->city_name }}</a>,
-                                        <a
-                                            href="{{ route('page.state', ['state_slug'=>$similar_item->state->state_slug]) }}">{{ $similar_item->state->state_name }}</a>
-                                    </address>
-                                    @endif
-
-                                    @if($similar_item->getCountRating() > 0)
-                                    <div class="row">
-                                        <div class="col-12">
-                                            <div class="pl-0 rating_stars rating_stars_{{ $similar_item->item_slug }}"
-                                                data-id="rating_stars_{{ $similar_item->item_slug }}"
-                                                data-rating="{{ $similar_item->item_average_rating }}"></div>
-                                            <address class="mt-1">
-                                                @if($similar_item->getCountRating() == 1)
-                                                {{ '(' . $similar_item->getCountRating() . ' ' . __('review.frontend.review') . ')' }}
-                                                @else
-                                                {{ '(' . $similar_item->getCountRating() . ' ' . __('review.frontend.reviews') . ')' }}
-                                                @endif
-                                            </address>
-                                        </div>
-                                    </div>
-                                    @endif
-
-                                    <div class="row">
-                                        <div class="col-2 pr-0">
-                                            @if(empty($similar_item->user->user_image))
-                                            <img src="{{ asset('frontend/images/placeholder/profile-'. intval($similar_item->user->id % 10) . '.webp') }}"
-                                                alt="Image" class="img-fluid rounded-circle">
-                                            @else
-
-                                            <img src="https://s3.us-west-1.wasabisys.com/testa/profile/{{ $similar_item->user->user_image }}"
-                                                alt="{{ $similar_item->user->name }}" class="img-fluid rounded-circle">
-                                            @endif
-                                        </div>
-                                        <div class="col-10 line-height-1-2">
-
-                                            <div class="row pb-1">
-                                                <div class="col-12">
-                                                    <span class="font-size-13">{{ $similar_item->user->name }}</span>
-                                                </div>
-                                            </div>
-                                            <div class="row line-height-1-0">
-                                                <div class="col-12">
-                                                    @if($similar_item->totalComments() > 1)
-                                                    <span
-                                                        class="review">{{ $similar_item->totalComments() . ' comments' }}</span>
-                                                    @elseif($similar_item->totalComments() == 1)
-                                                    <span
-                                                        class="review">{{ $similar_item->totalComments() . ' comment' }}</span>
-                                                    @endif
-                                                    <span
-                                                        class="review">{{ $similar_item->created_at->diffForHumans() }}</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        @endforeach
-
                     </div>
                     @endif
+                    <!-- end item section after reviews -->
 
-                    @if($nearby_items->count() > 0)
-                    <div class="row mb-4 mt-4">
-                        <div class="col-md-7 text-left border-primary">
-                            <h2 class="font-weight-light text-primary">{{ __('frontend.item.nearby-listings') }}</h2>
-                        </div>
-                    </div>
-                    <div class="row">
-
-                        @foreach($nearby_items as $key => $nearby_item)
-                        <div class="col-lg-6">
-                            <div class="d-block d-md-flex listing">
-                                <a href="{{ route('page.item', $nearby_item->item_slug) }}" class="img d-block"
-                                    style="background-image: url({{ !empty($nearby_item->item_image_small) ? 'https://s3.us-west-1.wasabisys.com/testa/original/'.$nearby_item->item_image_small : (!empty($nearby_item->item_image) ? 'https://s3.us-west-1.wasabisys.com/testa/original/'.$nearby_item->item_image : asset('frontend/images/placeholder/full_item_feature_image_small.webp')) }})"></a>
-                                <div class="lh-content">
-
-                                    @foreach($nearby_item->getAllCategories(\App\Item::ITEM_TOTAL_SHOW_CATEGORY) as $key
-                                    => $category)
-                                    <a href="{{ route('page.category', $category->category_slug) }}">
-                                        <span class="category">
-                                            @if(!empty($category->category_icon))
-                                            <i class="{{ $category->category_icon }}"></i>
-                                            @endif
-                                            {{ $category->category_name }}
-                                        </span>
-                                    </a>
-                                    @endforeach
-
-                                    @if($nearby_item->allCategories()->count() > \App\Item::ITEM_TOTAL_SHOW_CATEGORY)
-                                    <span
-                                        class="category">{{ __('categories.and') . " " . strval($nearby_item->allCategories()->count() - \App\Item::ITEM_TOTAL_SHOW_CATEGORY) . " " . __('categories.more') }}</span>
-                                    @endif
-
-                                    <h3 class="pt-2"><a
-                                            href="{{ route('page.item', $nearby_item->item_slug) }}">{{ $nearby_item->item_title }}</a>
-                                    </h3>
-
-                                    @if($nearby_item->item_type == \App\Item::ITEM_TYPE_REGULAR)
-                                    <address>
-                                        <a
-                                            href="{{ route('page.city', ['state_slug'=>$nearby_item->state->state_slug, 'city_slug'=>$nearby_item->city->city_slug]) }}">{{ $nearby_item->city->city_name }}</a>,
-                                        <a
-                                            href="{{ route('page.state', ['state_slug'=>$nearby_item->state->state_slug]) }}">{{ $nearby_item->state->state_name }}</a>
-                                    </address>
-                                    @endif
-
-                                    @if($nearby_item->getCountRating() > 0)
-                                    <div class="row">
-                                        <div class="col-12">
-                                            <div class="pl-0 rating_stars rating_stars_{{ $nearby_item->item_slug }}"
-                                                data-id="rating_stars_{{ $nearby_item->item_slug }}"
-                                                data-rating="{{ $nearby_item->item_average_rating }}"></div>
-                                            <address class="mt-1">
-                                                @if($nearby_item->getCountRating() == 1)
-                                                {{ '(' . $nearby_item->getCountRating() . ' ' . __('review.frontend.review') . ')' }}
-                                                @else
-                                                {{ '(' . $nearby_item->getCountRating() . ' ' . __('review.frontend.reviews') . ')' }}
-                                                @endif
-                                            </address>
-                                        </div>
-                                    </div>
-                                    @endif
-
-                                    <div class="row">
-                                        <div class="col-2 pr-0">
-                                            @if(empty($nearby_item->user->user_image))
-                                            <img src="{{ asset('frontend/images/placeholder/profile-'. intval($nearby_item->user->id % 10) . '.webp') }}"
-                                                alt="Image" class="img-fluid rounded-circle">
-                                            @else
-
-                                            <img src="https://s3.us-west-1.wasabisys.com/testa/profile/{{  $nearby_item->user->user_image }}"
-                                                alt="{{ $nearby_item->user->name }}" class="img-fluid rounded-circle">
-                                            @endif
-                                        </div>
-                                        <div class="col-10 line-height-1-2">
-
-                                            <div class="row pb-1">
-                                                <div class="col-12">
-                                                    <span class="font-size-13">{{ $nearby_item->user->name }}</span>
-                                                </div>
-                                            </div>
-                                            <div class="row line-height-1-0">
-                                                <div class="col-12">
-                                                    @if($nearby_item->totalComments() > 1)
-                                                    <span
-                                                        class="review">{{ $nearby_item->totalComments() . ' comments' }}</span>
-                                                    @elseif($nearby_item->totalComments() == 1)
-                                                    <span
-                                                        class="review">{{ $nearby_item->totalComments() . ' comment' }}</span>
-                                                    @endif
-                                                    <span
-                                                        class="review">{{ $nearby_item->created_at->diffForHumans() }}</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                    @if($ads_before_comments->count() > 0)
+                    @foreach($ads_before_comments as $ads_before_comments_key => $ad_before_comments)
+                    <div class="row mb-3">
+                        @if($ad_before_comments->advertisement_alignment ==
+                        \App\Advertisement::AD_ALIGNMENT_LEFT)
+                        <div class="col-12 text-left">
+                            <div>
+                                {!! $ad_before_comments->advertisement_code !!}
                             </div>
                         </div>
-                        @endforeach
+                        @elseif($ad_before_comments->advertisement_alignment ==
+                        \App\Advertisement::AD_ALIGNMENT_CENTER)
+                        <div class="col-12 text-center">
+                            <div>
+                                {!! $ad_before_comments->advertisement_code !!}
+                            </div>
+                        </div>
+                        @elseif($ad_before_comments->advertisement_alignment ==
+                        \App\Advertisement::AD_ALIGNMENT_RIGHT)
+                        <div class="col-12 text-right">
+                            <div>
+                                {!! $ad_before_comments->advertisement_code !!}
+                            </div>
+                        </div>
+                        @endif
 
                     </div>
+                    @endforeach
                     @endif
 
-                </div>
-            </div>
-            @endif
+                    <div class="row mb-3">
+                        <div class="col-12">
+                            <h4 class="h5 mb-4 text-black">{{ __('frontend.item.comments') }}</h4>
 
-            <!-- Modal - share -->
-            <div class="modal fade" id="share-modal" tabindex="-1" role="dialog" aria-labelledby="share-modal"
-                aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLongTitle">{{ __('frontend.item.share-listing') }}
-                            </h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
+                            @comments([
+                            'model' => $item,
+                            'approved' => true,
+                            'perPage' => 10
+                            ])
+
+                            <hr>
                         </div>
-                        <div class="modal-body">
+                    </div>
 
+                    <!-- start item section after comments -->
+                    @if($item_sections_after_comments->count() > 0)
+                    <div class="row mb-3">
+                        <div class="col-12">
+                            @foreach($item_sections_after_comments as $item_sections_after_comments_key =>
+                            $after_comments_section)
+                            <h4 class="h5 mb-4 text-black">{{ $after_comments_section->item_section_title }}
+                            </h4>
+
+                            @php
+                            $after_comments_section_collections =
+                            $after_comments_section->itemSectionCollections()->orderBy('item_section_collection_order')->get();
+                            @endphp
+
+                            @if($after_comments_section_collections->count() > 0)
                             <div class="row">
-                                <div class="col-md-12">
+                                @foreach($after_comments_section_collections as
+                                $after_comments_section_collections_key => $after_comments_section_collection)
+                                <div class="col-md-6 col-sm-12 mb-3">
 
-                                    <p>{{ __('frontend.item.share-listing-social-media') }}</p>
+                                    @if($after_comments_section_collection->item_section_collection_collectible_type
+                                    == \App\ItemSectionCollection::COLLECTIBLE_TYPE_PRODUCT)
+                                    @php
+                                    $find_product_after_comments =
+                                    \App\Product::find($after_comments_section_collection->item_section_collection_collectible_id);
+                                    @endphp
+                                    <div class="row align-items-center border-right">
+                                        <div class="col-md-5 col-4">
+                                            <a
+                                                href="{{ route('page.product', ['item_slug' => $item->item_slug, 'product_slug' => $find_product_after_comments->product_slug]) }}">
+                                                @if(empty($find_product_after_comments->product_image_small))
+                                                <img src="{{ asset('frontend/images/placeholder/full_item_feature_image_tiny.webp') }}"
+                                                    alt="Image" class="img-fluid rounded">
+                                                @else
+                                                <img src="{{ Storage::disk('public')->url('product/' . $find_product_after_comments->product_image_small) }}"
+                                                    alt="Image" class="img-fluid rounded">
+                                                @endif
+                                            </a>
+                                        </div>
+                                        <div class="pl-0 col-md-7 col-8">
+
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <span
+                                                        class="text-black">{{ str_limit($find_product_after_comments->product_name, 20) }}</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <span>{{ str_limit($find_product_after_comments->product_description, 40) }}</span>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    @if(!empty($find_product_after_comments->product_price))
+                                                    <span
+                                                        class="text-black">{{ $site_global_settings->setting_product_currency_symbol . number_format($find_product_after_comments->product_price, 2) }}</span>
+                                                    @endif
+                                                </div>
+                                            </div>
+
+                                            <div class="row mt-1">
+                                                <div class="col-12">
+                                                    <a class="btn btn-sm btn-outline-primary btn-block rounded"
+                                                        href="{{ route('page.product', ['item_slug' => $item->item_slug, 'product_slug' => $find_product_after_comments->product_slug]) }}">
+                                                        {{ __('item_section.read-more') }}
+                                                    </a>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    @endif
+
+                                </div>
+                                @endforeach
+                            </div>
+                            @endif
+                            <hr>
+                            @endforeach
+                        </div>
+                    </div>
+                    @endif
+                    <!-- end item section after comments -->
+
+                    @if($ads_before_share->count() > 0)
+                    @foreach($ads_before_share as $ads_before_share_key => $ad_before_share)
+                    <div class="row mb-3">
+                        @if($ad_before_share->advertisement_alignment == \App\Advertisement::AD_ALIGNMENT_LEFT)
+                        <div class="col-12 text-left">
+                            <div>
+                                {!! $ad_before_share->advertisement_code !!}
+                            </div>
+                        </div>
+                        @elseif($ad_before_share->advertisement_alignment ==
+                        \App\Advertisement::AD_ALIGNMENT_CENTER)
+                        <div class="col-12 text-center">
+                            <div>
+                                {!! $ad_before_share->advertisement_code !!}
+                            </div>
+                        </div>
+                        @elseif($ad_before_share->advertisement_alignment ==
+                        \App\Advertisement::AD_ALIGNMENT_RIGHT)
+                        <div class="col-12 text-right">
+                            <div>
+                                {!! $ad_before_share->advertisement_code !!}
+                            </div>
+                        </div>
+                        @endif
+
+                    </div>
+                    @endforeach
+                    @endif
+
+                    <div class="row mb-3">
+                        <div class="col-12">
+                            <h4 class="h5 mb-4 text-black">{{ __('frontend.item.share') }}</h4>
+                            <div class="row">
+                                <div class="col-12">
 
                                     <!-- Create link with share to Facebook -->
                                     <a class="btn btn-primary text-white btn-sm rounded mb-2 btn-facebook" href=""
@@ -2740,11 +2086,13 @@ $site_global_settings->setting_site_language]) !!}
                                         <i class="fab fa-facebook-f"></i>
                                         {{ __('social_share.facebook') }}
                                     </a>
+
                                     <a class="btn btn-primary text-white btn-sm rounded mb-2 btn-twitter" href=""
                                         data-social="twitter">
                                         <i class="fab fa-twitter"></i>
                                         {{ __('social_share.twitter') }}
                                     </a>
+
                                     <a class="btn btn-primary text-white btn-sm rounded mb-2 btn-linkedin" href=""
                                         data-social="linkedin">
                                         <i class="fab fa-linkedin-in"></i>
@@ -2755,6 +2103,7 @@ $site_global_settings->setting_site_language]) !!}
                                         <i class="fab fa-blogger-b"></i>
                                         {{ __('social_share.blogger') }}
                                     </a>
+
                                     <a class="btn btn-primary text-white btn-sm rounded mb-2 btn-pinterest" href=""
                                         data-social="pinterest">
                                         <i class="fab fa-pinterest-p"></i>
@@ -2819,311 +2168,953 @@ $site_global_settings->setting_site_language]) !!}
                                 </div>
                             </div>
                             <hr>
+                        </div>
+                    </div>
+
+                    @if($ads_after_share->count() > 0)
+                    @foreach($ads_after_share as $ads_after_share_key => $ad_after_share)
+                    <div class="row mb-3">
+                        @if($ad_after_share->advertisement_alignment == \App\Advertisement::AD_ALIGNMENT_LEFT)
+                        <div class="col-12 text-left">
+                            <div>
+                                {!! $ad_after_share->advertisement_code !!}
+                            </div>
+                        </div>
+                        @elseif($ad_after_share->advertisement_alignment ==
+                        \App\Advertisement::AD_ALIGNMENT_CENTER)
+                        <div class="col-12 text-center">
+                            <div>
+                                {!! $ad_after_share->advertisement_code !!}
+                            </div>
+                        </div>
+                        @elseif($ad_after_share->advertisement_alignment ==
+                        \App\Advertisement::AD_ALIGNMENT_RIGHT)
+                        <div class="col-12 text-right">
+                            <div>
+                                {!! $ad_after_share->advertisement_code !!}
+                            </div>
+                        </div>
+                        @endif
+
+                    </div>
+                    @endforeach
+                    @endif
+
+                    <!-- start item section after share -->
+                    @if($item_sections_after_share->count() > 0)
+                    <div class="row mb-3">
+                        <div class="col-12">
+                            @foreach($item_sections_after_share as $item_sections_after_share_key =>
+                            $after_share_section)
+                            <h4 class="h5 mb-4 text-black">{{ $after_share_section->item_section_title }}</h4>
+
+                            @php
+                            $after_share_section_collections =
+                            $after_share_section->itemSectionCollections()->orderBy('item_section_collection_order')->get();
+                            @endphp
+
+                            @if($after_share_section_collections->count() > 0)
                             <div class="row">
-                                <div class="col-md-12">
-                                    <p>{{ __('frontend.item.share-listing-email') }}</p>
-                                    @if(!Auth::check())
-                                    <div class="row mb-2">
-                                        <div class="col-12">
-                                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                                {{ __('frontend.item.login-require') }}
+                                @foreach($after_share_section_collections as
+                                $after_share_section_collections_key => $after_share_section_collection)
+                                <div class="col-md-6 col-sm-12 mb-3">
+
+                                    @if($after_share_section_collection->item_section_collection_collectible_type
+                                    == \App\ItemSectionCollection::COLLECTIBLE_TYPE_PRODUCT)
+                                    @php
+                                    $find_product_after_share =
+                                    \App\Product::find($after_share_section_collection->item_section_collection_collectible_id);
+                                    @endphp
+                                    <div class="row align-items-center border-right">
+                                        <div class="col-md-5 col-4">
+                                            <a
+                                                href="{{ route('page.product', ['item_slug' => $item->item_slug, 'product_slug' => $find_product_after_share->product_slug]) }}">
+                                                @if(empty($find_product_after_share->product_image_small))
+                                                <img src="{{ asset('frontend/images/placeholder/full_item_feature_image_tiny.webp') }}"
+                                                    alt="Image" class="img-fluid rounded">
+                                                @else
+                                                <img src="{{ Storage::disk('public')->url('product/' . $find_product_after_share->product_image_small) }}"
+                                                    alt="Image" class="img-fluid rounded">
+                                                @endif
+                                            </a>
+                                        </div>
+                                        <div class="pl-0 col-md-7 col-8">
+
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <span
+                                                        class="text-black">{{ str_limit($find_product_after_share->product_name, 20) }}</span>
+                                                </div>
                                             </div>
+
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <span>{{ str_limit($find_product_after_share->product_description, 40) }}</span>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    @if(!empty($find_product_after_share->product_price))
+                                                    <span
+                                                        class="text-black">{{ $site_global_settings->setting_product_currency_symbol . number_format($find_product_after_share->product_price, 2) }}</span>
+                                                    @endif
+                                                </div>
+                                            </div>
+
+                                            <div class="row mt-1">
+                                                <div class="col-12">
+                                                    <a class="btn btn-sm btn-outline-primary btn-block rounded"
+                                                        href="{{ route('page.product', ['item_slug' => $item->item_slug, 'product_slug' => $find_product_after_share->product_slug]) }}">
+                                                        {{ __('item_section.read-more') }}
+                                                    </a>
+                                                </div>
+                                            </div>
+
                                         </div>
                                     </div>
                                     @endif
-                                    <form action="{{ route('page.item.email', ['item_slug' => $item->item_slug]) }}"
-                                        method="POST">
-                                        @csrf
-                                        <div class="form-row mb-3">
-                                            <div class="col-md-4">
-                                                <label for="item_share_email_name"
-                                                    class="text-black">{{ __('frontend.item.name') }}</label>
-                                                <input id="item_share_email_name" type="text"
-                                                    class="form-control @error('item_share_email_name') is-invalid @enderror"
-                                                    name="item_share_email_name"
-                                                    value="{{ old('item_share_email_name') }}"
-                                                    {{ Auth::check() ? '' : 'disabled' }}>
-                                                @error('item_share_email_name')
-                                                <span class="invalid-tooltip">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                                @enderror
-                                            </div>
-                                            <div class="col-md-4">
-                                                <label for="item_share_email_from_email"
-                                                    class="text-black">{{ __('frontend.item.email') }}</label>
-                                                <input id="item_share_email_from_email" type="email"
-                                                    class="form-control @error('item_share_email_from_email') is-invalid @enderror"
-                                                    name="item_share_email_from_email"
-                                                    value="{{ old('item_share_email_from_email') }}"
-                                                    {{ Auth::check() ? '' : 'disabled' }}>
-                                                @error('item_share_email_from_email')
-                                                <span class="invalid-tooltip">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                                @enderror
-                                            </div>
-                                            <div class="col-md-4">
-                                                <label for="item_share_email_to_email"
-                                                    class="text-black">{{ __('frontend.item.email-to') }}</label>
-                                                <input id="item_share_email_to_email" type="email"
-                                                    class="form-control @error('item_share_email_to_email') is-invalid @enderror"
-                                                    name="item_share_email_to_email"
-                                                    value="{{ old('item_share_email_to_email') }}"
-                                                    {{ Auth::check() ? '' : 'disabled' }}>
-                                                @error('item_share_email_to_email')
-                                                <span class="invalid-tooltip">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                                @enderror
-                                            </div>
-                                        </div>
-                                        <div class="form-row mb-3">
-                                            <div class="col-md-12">
-                                                <label for="item_share_email_note"
-                                                    class="text-black">{{ __('frontend.item.add-note') }}</label>
-                                                <textarea
-                                                    class="form-control @error('item_share_email_note') is-invalid @enderror"
-                                                    id="item_share_email_note" rows="3" name="item_share_email_note"
-                                                    {{ Auth::check() ? '' : 'disabled' }}>{{ old('item_share_email_note') }}</textarea>
-                                                @error('item_share_email_note')
-                                                <span class="invalid-tooltip">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                                @enderror
-                                            </div>
-                                        </div>
-                                        <div class="form-row">
-                                            <div class="col-md-12">
-                                                <button type="submit"
-                                                    class="btn btn-primary py-2 px-4 text-white rounded"
-                                                    {{ Auth::check() ? '' : 'disabled' }}>
-                                                    {{ __('frontend.item.send-email') }}
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
 
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary rounded"
-                                data-dismiss="modal">{{ __('backend.shared.cancel') }}</button>
+                                </div>
+                                @endforeach
+                            </div>
+                            @endif
+                            <hr>
+                            @endforeach
                         </div>
                     </div>
+                    @endif
+                    <!-- end item section after share -->
+
+                    @if(!$item_has_claimed)
+                    <div class="row pt-3 pb-3 pl-2 pr-2 border border-dark rounded bg-light align-items-center">
+                        <div class="col-sm-12 col-md-9 pr-0">
+                            <h4 class="h5 text-black">{{ __('item_claim.claim-business') }}</h4>
+                            <span>{{ __('item_claim.unclaimed-desc') }}</span>
+                        </div>
+                        <div class="col-sm-12 col-md-3 text-right">
+                            @if(\Illuminate\Support\Facades\Auth::check() &&
+                            \Illuminate\Support\Facades\Auth::user()->isAdmin())
+                            <a class="btn btn-primary rounded text-white"
+                                href="{{ route('admin.item-claims.create', ['item_slug' => $item->item_slug]) }}"
+                                target="_blank">{{ __('item_claim.claim-business-button') }}</a>
+                            @else
+                            <a class="btn btn-primary rounded text-white"
+                                href="{{ route('user.item-claims.create', ['item_slug' => $item->item_slug]) }}"
+                                target="_blank">{{ __('item_claim.claim-business-button') }}</a>
+                            @endif
+                        </div>
+                    </div>
+                    @endif
+
+                </div>
+
+                <div class="col-lg-3 ml-auto">
+
+                    <div class="pt-3">
+
+                        @if($ads_before_sidebar_content->count() > 0)
+                        @foreach($ads_before_sidebar_content as $ads_before_sidebar_content_key =>
+                        $ad_before_sidebar_content)
+                        <div class="row mb-5">
+                            @if($ad_before_sidebar_content->advertisement_alignment ==
+                            \App\Advertisement::AD_ALIGNMENT_LEFT)
+                            <div class="col-12 text-left">
+                                <div>
+                                    {!! $ad_before_sidebar_content->advertisement_code !!}
+                                </div>
+                            </div>
+                            @elseif($ad_before_sidebar_content->advertisement_alignment ==
+                            \App\Advertisement::AD_ALIGNMENT_CENTER)
+                            <div class="col-12 text-center">
+                                <div>
+                                    {!! $ad_before_sidebar_content->advertisement_code !!}
+                                </div>
+                            </div>
+                            @elseif($ad_before_sidebar_content->advertisement_alignment ==
+                            \App\Advertisement::AD_ALIGNMENT_RIGHT)
+                            <div class="col-12 text-right">
+                                <div>
+                                    {!! $ad_before_sidebar_content->advertisement_code !!}
+                                </div>
+                            </div>
+                            @endif
+                        </div>
+                        @endforeach
+                        @endif
+
+                        <div class="row mb-2 align-items-center">
+                            <div class="col-12">
+                                <h3 class="h5 text-black">{{ __('rating_summary.managed-by') }}</h3>
+                            </div>
+                        </div>
+
+                        <div class="row align-items-center">
+                            <div class="col-4">
+                                @if(empty($item->user->user_image))
+                                <img src="https://s3.us-west-1.wasabisys.com/{{ config('app.WASABI_BUCKET')}}/profile/{{ $item->user->user_image }}"
+                                    alt="Image" class="img-fluid rounded-circle">
+                                @else
+
+                                <img src="https://s3.us-west-1.wasabisys.com/{{ config('app.WASABI_BUCKET')}}/profile/{{ $item->user->user_image }}"
+                                    alt="{{ $item->user->name }}" class="img-fluid rounded-circle">
+                                @endif
+                            </div>
+                            <div class="col-8 pl-0">
+                                <span class="font-size-13">{{ $item->user->name }}</span><br />
+                                <span
+                                    class="font-size-13">{{ __('frontend.item.posted') . ' ' . $item->created_at->diffForHumans() }}</span>
+                            </div>
+                        </div>
+
+                        @if(\Illuminate\Support\Facades\Auth::check())
+                        @if(\Illuminate\Support\Facades\Auth::user()->id != $item->user_id)
+                        <div class="row mt-5 mb-2 align-items-center">
+                            <div class="col-12">
+                                <h3 class="h5 text-black">{{ __('backend.message.message-txt') }}</h3>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-12">
+                                @if(\Illuminate\Support\Facades\Auth::user()->isAdmin())
+                                <!-- message item owner contact form -->
+                                <form method="POST" action="{{ route('admin.messages.store') }}" class="">
+                                    @csrf
+
+                                    <input type="hidden" name="recipient" value="{{ $item->user_id }}">
+                                    <input type="hidden" name="item" value="{{ $item->id }}">
+                                    <div class="form-group">
+                                        <input id="subject" type="text"
+                                            class="form-control rounded @error('subject') is-invalid @enderror"
+                                            name="subject" value="{{ old('subject') }}"
+                                            placeholder="{{ __('backend.message.subject') }}">
+                                        @error('subject')
+                                        <span class="invalid-tooltip">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                        @enderror
+                                    </div>
+                                    <div class="form-group">
+                                        <textarea rows="6" id="message" type="text"
+                                            class="form-control rounded @error('message') is-invalid @enderror"
+                                            name="message"
+                                            placeholder="{{ __('backend.message.message-txt') }}">{{ old('message') }}</textarea>
+                                        @error('message')
+                                        <span class="invalid-tooltip">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                        @enderror
+                                    </div>
+                                    <div class="form-group">
+                                        <button type="submit" class="btn btn-outline-primary btn-block rounded">
+                                            {{ __('frontend.item.send-message') }}
+                                        </button>
+                                    </div>
+                                </form>
+                                @else
+                                <!-- message item owner contact form -->
+                                <form method="POST" action="{{ route('user.messages.store') }}" class="">
+                                    @csrf
+
+                                    <input type="hidden" name="recipient" value="{{ $item->user_id }}">
+                                    <input type="hidden" name="item" value="{{ $item->id }}">
+                                    <div class="form-group">
+                                        <input id="subject" type="text"
+                                            class="form-control rounded @error('subject') is-invalid @enderror"
+                                            name="subject" value="{{ old('subject') }}"
+                                            placeholder="{{ __('backend.message.subject') }}">
+                                        @error('subject')
+                                        <span class="invalid-tooltip">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                        @enderror
+                                    </div>
+                                    <div class="form-group">
+                                        <textarea rows="6" id="message" type="text"
+                                            class="form-control rounded @error('message') is-invalid @enderror"
+                                            name="message"
+                                            placeholder="{{ __('backend.message.message-txt') }}">{{ old('message') }}</textarea>
+                                        @error('message')
+                                        <span class="invalid-tooltip">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                        @enderror
+                                    </div>
+                                    <div class="form-group">
+                                        <button type="submit" class="btn btn-outline-primary btn-block rounded">
+                                            {{ __('frontend.item.send-message') }}
+                                        </button>
+                                    </div>
+                                </form>
+                                @endif
+                            </div>
+                        </div>
+
+                        @endif
+                        @else
+                        <div class="row mt-3 mb-5 align-items-center">
+                            <div class="col-12">
+                                <a class="btn btn-primary btn-block rounded text-white" href="#" data-toggle="modal"
+                                    data-target="#itemLeadModal">{{ __('rating_summary.contact') }}</a>
+                            </div>
+                        </div>
+                        @endif
+
+                        @include('frontend.partials.search.side')
+
+                        @if($ads_after_sidebar_content->count() > 0)
+                        @foreach($ads_after_sidebar_content as $ads_after_sidebar_content_key =>
+                        $ad_after_sidebar_content)
+                        <div class="row mt-5">
+                            @if($ad_after_sidebar_content->advertisement_alignment ==
+                            \App\Advertisement::AD_ALIGNMENT_LEFT)
+                            <div class="col-12 text-left">
+                                <div>
+                                    {!! $ad_after_sidebar_content->advertisement_code !!}
+                                </div>
+                            </div>
+                            @elseif($ad_after_sidebar_content->advertisement_alignment ==
+                            \App\Advertisement::AD_ALIGNMENT_CENTER)
+                            <div class="col-12 text-center">
+                                <div>
+                                    {!! $ad_after_sidebar_content->advertisement_code !!}
+                                </div>
+                            </div>
+                            @elseif($ad_after_sidebar_content->advertisement_alignment ==
+                            \App\Advertisement::AD_ALIGNMENT_RIGHT)
+                            <div class="col-12 text-right">
+                                <div>
+                                    {!! $ad_after_sidebar_content->advertisement_code !!}
+                                </div>
+                            </div>
+                            @endif
+                        </div>
+                        @endforeach
+                        @endif
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    @if($similar_items->count() > 0 || $nearby_items->count() > 0)
+    <div class="site-section bg-light">
+        <div class="container">
+
+            @if($similar_items->count() > 0)
+            <div class="row mb-4">
+                <div class="col-md-7 text-left border-primary">
+                    <h2 class="font-weight-light text-primary">{{ __('frontend.item.similar-listings') }}</h2>
                 </div>
             </div>
+            <div class="row">
 
-            @if($item_total_categories > \App\Item::ITEM_TOTAL_SHOW_CATEGORY)
-            <!-- Modal show categories -->
-            <div class="modal fade" id="showCategoriesModal" tabindex="-1" role="dialog"
-                aria-labelledby="showCategoriesModal" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLongTitle">
-                                {{ __('categories.all-cat') . " - " . $item->item_title }}</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
+                @foreach($similar_items as $key => $similar_item)
+                <div class="col-lg-6">
+                    <div class="d-block d-md-flex listing">
+                        <a href="{{ route('page.item', $similar_item->item_slug) }}" class="img d-block"
+                            style="background-image: url({{ !empty($similar_item->item_image_small) ? Storage::disk('public')->url('item/' . $similar_item->item_image_small) : (!empty($similar_item->item_image) ? Storage::disk('public')->url('item/' . $similar_item->item_image) : asset('frontend/images/placeholder/full_item_feature_image_small.webp')) }})"></a>
+                        <div class="lh-content">
+
+                            @foreach($similar_item->getAllCategories(\App\Item::ITEM_TOTAL_SHOW_CATEGORY) as
+                            $key => $category)
+                            <a href="{{ route('page.category', $category->category_slug) }}">
+                                <span class="category">
+                                    @if(!empty($category->category_icon))
+                                    <i class="{{ $category->category_icon }}"></i>
+                                    @endif
+                                    {{ $category->category_name }}
+                                </span>
+                            </a>
+                            @endforeach
+
+                            @if($similar_item->allCategories()->count() > \App\Item::ITEM_TOTAL_SHOW_CATEGORY)
+                            <span
+                                class="category">{{ __('categories.and') . " " . strval($similar_item->allCategories()->count() - \App\Item::ITEM_TOTAL_SHOW_CATEGORY) . " " . __('categories.more') }}</span>
+                            @endif
+
+                            <h3 class="pt-2"><a
+                                    href="{{ route('page.item', $similar_item->item_slug) }}">{{ $similar_item->item_title }}</a>
+                            </h3>
+
+                            @if($similar_item->item_type == \App\Item::ITEM_TYPE_REGULAR)
+                            <address>
+                                <a
+                                    href="{{ route('page.city', ['state_slug'=>$similar_item->state->state_slug, 'city_slug'=>$similar_item->city->city_slug]) }}">{{ $similar_item->city->city_name }}</a>,
+                                <a
+                                    href="{{ route('page.state', ['state_slug'=>$similar_item->state->state_slug]) }}">{{ $similar_item->state->state_name }}</a>
+                            </address>
+                            @endif
+
+                            @if($similar_item->getCountRating() > 0)
                             <div class="row">
                                 <div class="col-12">
-                                    @foreach($item_all_categories as $item_all_categories_key => $a_category)
-
-                                    <a class="btn btn-sm btn-outline-primary rounded mb-2"
-                                        href="{{ route('page.category', $a_category->category_slug) }}">
-                                        <span class="category">{{ $a_category->category_name }}</span>
-                                    </a>
-
-                                    @endforeach
-                                </div>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary rounded"
-                                data-dismiss="modal">{{ __('backend.shared.cancel') }}</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            @endif
-
-            <!-- QR Code modal -->
-            <div class="modal fade" id="qrcodeModal" tabindex="-1" role="dialog" aria-labelledby="qrcodeModal"
-                aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLongTitle">
-                                {{ __('theme_directory_hub.listing.qr-code')  }}</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="row">
-                                <div class="col-12 text-center">
-                                    <div id="item-qrcode"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary rounded"
-                                data-dismiss="modal">{{ __('importer_csv.error-notify-modal-close') }}</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            @if(!\Illuminate\Support\Facades\Auth::check())
-            <div class="modal fade" id="itemLeadModal" tabindex="-1" role="dialog" aria-labelledby="itemLeadModal"
-                aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLongTitle">
-                                {{ __('rating_summary.contact') . ' ' . $item->item_title }}</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <form
-                                        action="{{ route('page.item.lead.store', ['item_slug' => $item->item_slug]) }}"
-                                        method="POST">
-                                        @csrf
-                                        <div class="form-row mb-3">
-                                            <div class="col-12 col-md-6">
-                                                <label for="item_lead_name"
-                                                    class="text-black">{{ __('role_permission.item-leads.item-lead-name') }}</label>
-                                                <input id="item_lead_name" type="text"
-                                                    class="form-control @error('item_lead_name') is-invalid @enderror"
-                                                    name="item_lead_name" value="{{ old('item_lead_name') }}">
-                                                @error('item_lead_name')
-                                                <span class="invalid-tooltip">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                                @enderror
-                                            </div>
-                                            <div class="col-12 col-md-6">
-                                                <label for="item_lead_email"
-                                                    class="text-black">{{ __('role_permission.item-leads.item-lead-email') }}</label>
-                                                <input id="item_lead_email" type="text"
-                                                    class="form-control @error('item_lead_email') is-invalid @enderror"
-                                                    name="item_lead_email" value="{{ old('item_lead_email') }}">
-                                                @error('item_lead_email')
-                                                <span class="invalid-tooltip">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                                @enderror
-                                            </div>
-                                        </div>
-
-                                        <div class="form-row mb-3">
-                                            <div class="col-12 col-md-6">
-                                                <label for="item_lead_phone"
-                                                    class="text-black">{{ __('role_permission.item-leads.item-lead-phone') }}</label>
-                                                <input id="item_lead_phone" type="text"
-                                                    class="form-control @error('item_lead_phone') is-invalid @enderror"
-                                                    name="item_lead_phone" value="{{ old('item_lead_phone') }}">
-                                                @error('item_lead_phone')
-                                                <span class="invalid-tooltip">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                                @enderror
-                                            </div>
-                                            <div class="col-12 col-md-6">
-                                                <label for="item_lead_subject"
-                                                    class="text-black">{{ __('role_permission.item-leads.item-lead-subject') }}</label>
-                                                <input id="item_lead_subject" type="text"
-                                                    class="form-control @error('item_lead_subject') is-invalid @enderror"
-                                                    name="item_lead_subject" value="{{ old('item_lead_subject') }}">
-                                                @error('item_lead_subject')
-                                                <span class="invalid-tooltip">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                                @enderror
-                                            </div>
-                                        </div>
-
-                                        <div class="form-row mb-3">
-                                            <div class="col-md-12">
-                                                <label for="item_lead_message"
-                                                    class="text-black">{{ __('role_permission.item-leads.item-lead-message') }}</label>
-                                                <textarea
-                                                    class="form-control @error('item_lead_message') is-invalid @enderror"
-                                                    id="item_lead_message" rows="3"
-                                                    name="item_lead_message">{{ old('item_lead_message') }}</textarea>
-                                                @error('item_lead_message')
-                                                <span class="invalid-tooltip">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                                @enderror
-                                            </div>
-                                        </div>
-
-                                        <!-- Start Google reCAPTCHA version 2 -->
-                                        @if($site_global_settings->setting_site_recaptcha_item_lead_enable ==
-                                        \App\Setting::SITE_RECAPTCHA_ITEM_LEAD_ENABLE)
-                                        <div class="row form-group">
-                                            <div class="col-md-12">
-                                                {!! htmlFormSnippet() !!}
-                                                @error('g-recaptcha-response')
-                                                <span class="invalid-tooltip">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                                @enderror
-                                            </div>
-                                        </div>
+                                    <div class="pl-0 rating_stars rating_stars_{{ $similar_item->item_slug }}"
+                                        data-id="rating_stars_{{ $similar_item->item_slug }}"
+                                        data-rating="{{ $similar_item->item_average_rating }}"></div>
+                                    <address class="mt-1">
+                                        @if($similar_item->getCountRating() == 1)
+                                        {{ '(' . $similar_item->getCountRating() . ' ' . __('review.frontend.review') . ')' }}
+                                        @else
+                                        {{ '(' . $similar_item->getCountRating() . ' ' . __('review.frontend.reviews') . ')' }}
                                         @endif
-                                        <!-- End Google reCAPTCHA version 2 -->
-
-                                        <div class="form-row">
-                                            <div class="col-md-12">
-                                                <button type="submit"
-                                                    class="btn btn-primary py-2 px-4 text-white rounded">
-                                                    {{ __('rating_summary.contact') }}
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </form>
+                                    </address>
                                 </div>
                             </div>
+                            @endif
 
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary rounded"
-                                data-dismiss="modal">{{ __('backend.shared.cancel') }}</button>
+                            <div class="row">
+                                <div class="col-2 pr-0">
+                                    @if(empty($similar_item->user->user_image))
+                                    <img src="{{ asset('frontend/images/placeholder/profile-'. intval($similar_item->user->id % 10) . '.webp') }}"
+                                        alt="Image" class="img-fluid rounded-circle">
+                                    @else
+
+                                    <img src="https://s3.us-west-1.wasabisys.com/{{ config('app.WASABI_BUCKET')}}/profile/{{ $similar_item->user->user_image }}"
+                                        alt="{{ $similar_item->user->name }}" class="img-fluid rounded-circle">
+                                    @endif
+                                </div>
+                                <div class="col-10 line-height-1-2">
+
+                                    <div class="row pb-1">
+                                        <div class="col-12">
+                                            <span class="font-size-13">{{ $similar_item->user->name }}</span>
+                                        </div>
+                                    </div>
+                                    <div class="row line-height-1-0">
+                                        <div class="col-12">
+                                            @if($similar_item->totalComments() > 1)
+                                            <span
+                                                class="review">{{ $similar_item->totalComments() . ' comments' }}</span>
+                                            @elseif($similar_item->totalComments() == 1)
+                                            <span
+                                                class="review">{{ $similar_item->totalComments() . ' comment' }}</span>
+                                            @endif
+                                            <span class="review">{{ $similar_item->created_at->diffForHumans() }}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
+                @endforeach
+
             </div>
             @endif
 
-            @endsection
+            @if($nearby_items->count() > 0)
+            <div class="row mb-4 mt-4">
+                <div class="col-md-7 text-left border-primary">
+                    <h2 class="font-weight-light text-primary">{{ __('frontend.item.nearby-listings') }}</h2>
+                </div>
+            </div>
+            <div class="row">
 
-            @section('scripts')
+                @foreach($nearby_items as $key => $nearby_item)
+                <div class="col-lg-6">
+                    <div class="d-block d-md-flex listing">
+                        <a href="{{ route('page.item', $nearby_item->item_slug) }}" class="img d-block"
+                            style="background-image: url({{ !empty($nearby_item->item_image_small) ? 'https://s3.us-west-1.wasabisys.com/pestcontrolgooglemap/original/'.$nearby_item->item_image_small : (!empty($nearby_item->item_image) ? 'https://s3.us-west-1.wasabisys.com/pestcontrolgooglemap/original/'.$nearby_item->item_image : asset('frontend/images/placeholder/full_item_feature_image_small.webp')) }})"></a>
+                        <div class="lh-content">
 
-            @if($item->item_type == \App\Item::ITEM_TYPE_REGULAR && $site_global_settings->setting_site_map ==
-            \App\Setting::SITE_MAP_OPEN_STREET_MAP)
-            <!-- Make sure you put this AFTER Leaflet's CSS -->
-            <script src="{{ asset('frontend/vendor/leaflet/leaflet.js') }}"></script>
+                            @foreach($nearby_item->getAllCategories(\App\Item::ITEM_TOTAL_SHOW_CATEGORY) as $key
+                            => $category)
+                            <a href="{{ route('page.category', $category->category_slug) }}">
+                                <span class="category">
+                                    @if(!empty($category->category_icon))
+                                    <i class="{{ $category->category_icon }}"></i>
+                                    @endif
+                                    {{ $category->category_name }}
+                                </span>
+                            </a>
+                            @endforeach
+
+                            @if($nearby_item->allCategories()->count() > \App\Item::ITEM_TOTAL_SHOW_CATEGORY)
+                            <span
+                                class="category">{{ __('categories.and') . " " . strval($nearby_item->allCategories()->count() - \App\Item::ITEM_TOTAL_SHOW_CATEGORY) . " " . __('categories.more') }}</span>
+                            @endif
+
+                            <h3 class="pt-2"><a
+                                    href="{{ route('page.item', $nearby_item->item_slug) }}">{{ $nearby_item->item_title }}</a>
+                            </h3>
+
+                            @if($nearby_item->item_type == \App\Item::ITEM_TYPE_REGULAR)
+                            <address>
+                                <a
+                                    href="{{ route('page.city', ['state_slug'=>$nearby_item->state->state_slug, 'city_slug'=>$nearby_item->city->city_slug]) }}">{{ $nearby_item->city->city_name }}</a>,
+                                <a
+                                    href="{{ route('page.state', ['state_slug'=>$nearby_item->state->state_slug]) }}">{{ $nearby_item->state->state_name }}</a>
+                            </address>
+                            @endif
+
+                            @if($nearby_item->getCountRating() > 0)
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="pl-0 rating_stars rating_stars_{{ $nearby_item->item_slug }}"
+                                        data-id="rating_stars_{{ $nearby_item->item_slug }}"
+                                        data-rating="{{ $nearby_item->item_average_rating }}"></div>
+                                    <address class="mt-1">
+                                        @if($nearby_item->getCountRating() == 1)
+                                        {{ '(' . $nearby_item->getCountRating() . ' ' . __('review.frontend.review') . ')' }}
+                                        @else
+                                        {{ '(' . $nearby_item->getCountRating() . ' ' . __('review.frontend.reviews') . ')' }}
+                                        @endif
+                                    </address>
+                                </div>
+                            </div>
+                            @endif
+
+                            <div class="row">
+                                <div class="col-2 pr-0">
+                                    @if(empty($nearby_item->user->user_image))
+                                    <img src="{{ asset('frontend/images/placeholder/profile-'. intval($nearby_item->user->id % 10) . '.webp') }}"
+                                        alt="Image" class="img-fluid rounded-circle">
+                                    @else
+
+                                    <img src="https://s3.us-west-1.wasabisys.com/{{ config('app.WASABI_BUCKET')}}/profile/{{  $nearby_item->user->user_image }}"
+                                        alt="{{ $nearby_item->user->name }}" class="img-fluid rounded-circle">
+                                    @endif
+                                </div>
+                                <div class="col-10 line-height-1-2">
+
+                                    <div class="row pb-1">
+                                        <div class="col-12">
+                                            <span class="font-size-13">{{ $nearby_item->user->name }}</span>
+                                        </div>
+                                    </div>
+                                    <div class="row line-height-1-0">
+                                        <div class="col-12">
+                                            @if($nearby_item->totalComments() > 1)
+                                            <span
+                                                class="review">{{ $nearby_item->totalComments() . ' comments' }}</span>
+                                            @elseif($nearby_item->totalComments() == 1)
+                                            <span class="review">{{ $nearby_item->totalComments() . ' comment' }}</span>
+                                            @endif
+                                            <span class="review">{{ $nearby_item->created_at->diffForHumans() }}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @endforeach
+
+            </div>
             @endif
 
-            <script src="{{ asset('frontend/vendor/justified-gallery/jquery.justifiedGallery.min.js') }}"></script>
-            <script src="{{ asset('frontend/vendor/colorbox/jquery.colorbox-min.js') }}"></script>
+        </div>
+    </div>
+    @endif
 
-            <script src="{{ asset('frontend/vendor/goodshare/goodshare.min.js') }}"></script>
+    <!-- Modal - share -->
+    <div class="modal fade" id="share-modal" tabindex="-1" role="dialog" aria-labelledby="share-modal"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">{{ __('frontend.item.share-listing') }}
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
 
-            <script src="{{ asset('frontend/vendor/jquery-qrcode/jquery-qrcode-0.18.0.min.js') }}"></script>
+                    <div class="row">
+                        <div class="col-md-12">
 
-            <script>
-                $(document).ready(function(){
+                            <p>{{ __('frontend.item.share-listing-social-media') }}</p>
+
+                            <!-- Create link with share to Facebook -->
+                            <a class="btn btn-primary text-white btn-sm rounded mb-2 btn-facebook" href=""
+                                data-social="facebook">
+                                <i class="fab fa-facebook-f"></i>
+                                {{ __('social_share.facebook') }}
+                            </a>
+                            <a class="btn btn-primary text-white btn-sm rounded mb-2 btn-twitter" href=""
+                                data-social="twitter">
+                                <i class="fab fa-twitter"></i>
+                                {{ __('social_share.twitter') }}
+                            </a>
+                            <a class="btn btn-primary text-white btn-sm rounded mb-2 btn-linkedin" href=""
+                                data-social="linkedin">
+                                <i class="fab fa-linkedin-in"></i>
+                                {{ __('social_share.linkedin') }}
+                            </a>
+                            <a class="btn btn-primary text-white btn-sm rounded mb-2 btn-blogger" href=""
+                                data-social="blogger">
+                                <i class="fab fa-blogger-b"></i>
+                                {{ __('social_share.blogger') }}
+                            </a>
+                            <a class="btn btn-primary text-white btn-sm rounded mb-2 btn-pinterest" href=""
+                                data-social="pinterest">
+                                <i class="fab fa-pinterest-p"></i>
+                                {{ __('social_share.pinterest') }}
+                            </a>
+                            <a class="btn btn-primary text-white btn-sm rounded mb-2 btn-evernote" href=""
+                                data-social="evernote">
+                                <i class="fab fa-evernote"></i>
+                                {{ __('social_share.evernote') }}
+                            </a>
+                            <a class="btn btn-primary text-white btn-sm rounded mb-2 btn-reddit" href=""
+                                data-social="reddit">
+                                <i class="fab fa-reddit-alien"></i>
+                                {{ __('social_share.reddit') }}
+                            </a>
+                            <a class="btn btn-primary text-white btn-sm rounded mb-2 btn-buffer" href=""
+                                data-social="buffer">
+                                <i class="fab fa-buffer"></i>
+                                {{ __('social_share.buffer') }}
+                            </a>
+                            <a class="btn btn-primary text-white btn-sm rounded mb-2 btn-wordpress" href=""
+                                data-social="wordpress">
+                                <i class="fab fa-wordpress-simple"></i>
+                                {{ __('social_share.wordpress') }}
+                            </a>
+                            <a class="btn btn-primary text-white btn-sm rounded mb-2 btn-weibo" href=""
+                                data-social="weibo">
+                                <i class="fab fa-weibo"></i>
+                                {{ __('social_share.weibo') }}
+                            </a>
+                            <a class="btn btn-primary text-white btn-sm rounded mb-2 btn-skype" href=""
+                                data-social="skype">
+                                <i class="fab fa-skype"></i>
+                                {{ __('social_share.skype') }}
+                            </a>
+                            <a class="btn btn-primary text-white btn-sm rounded mb-2 btn-telegram" href=""
+                                data-social="telegram">
+                                <i class="fab fa-telegram-plane"></i>
+                                {{ __('social_share.telegram') }}
+                            </a>
+                            <a class="btn btn-primary text-white btn-sm rounded mb-2 btn-viber" href=""
+                                data-social="viber">
+                                <i class="fab fa-viber"></i>
+                                {{ __('social_share.viber') }}
+                            </a>
+                            <a class="btn btn-primary text-white btn-sm rounded mb-2 btn-whatsapp" href=""
+                                data-social="whatsapp">
+                                <i class="fab fa-whatsapp"></i>
+                                {{ __('social_share.whatsapp') }}
+                            </a>
+                            <a class="btn btn-primary text-white btn-sm rounded mb-2 btn-wechat" href=""
+                                data-social="wechat">
+                                <i class="fab fa-weixin"></i>
+                                {{ __('social_share.wechat') }}
+                            </a>
+                            <a class="btn btn-primary text-white btn-sm rounded mb-2 btn-line" href=""
+                                data-social="line">
+                                <i class="fab fa-line"></i>
+                                {{ __('social_share.line') }}
+                            </a>
+
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <p>{{ __('frontend.item.share-listing-email') }}</p>
+                            @if(!Auth::check())
+                            <div class="row mb-2">
+                                <div class="col-12">
+                                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                        {{ __('frontend.item.login-require') }}
+                                    </div>
+                                </div>
+                            </div>
+                            @endif
+                            <form action="{{ route('page.item.email', ['item_slug' => $item->item_slug]) }}"
+                                method="POST">
+                                @csrf
+                                <div class="form-row mb-3">
+                                    <div class="col-md-4">
+                                        <label for="item_share_email_name"
+                                            class="text-black">{{ __('frontend.item.name') }}</label>
+                                        <input id="item_share_email_name" type="text"
+                                            class="form-control @error('item_share_email_name') is-invalid @enderror"
+                                            name="item_share_email_name" value="{{ old('item_share_email_name') }}"
+                                            {{ Auth::check() ? '' : 'disabled' }}>
+                                        @error('item_share_email_name')
+                                        <span class="invalid-tooltip">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                        @enderror
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="item_share_email_from_email"
+                                            class="text-black">{{ __('frontend.item.email') }}</label>
+                                        <input id="item_share_email_from_email" type="email"
+                                            class="form-control @error('item_share_email_from_email') is-invalid @enderror"
+                                            name="item_share_email_from_email"
+                                            value="{{ old('item_share_email_from_email') }}"
+                                            {{ Auth::check() ? '' : 'disabled' }}>
+                                        @error('item_share_email_from_email')
+                                        <span class="invalid-tooltip">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                        @enderror
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="item_share_email_to_email"
+                                            class="text-black">{{ __('frontend.item.email-to') }}</label>
+                                        <input id="item_share_email_to_email" type="email"
+                                            class="form-control @error('item_share_email_to_email') is-invalid @enderror"
+                                            name="item_share_email_to_email"
+                                            value="{{ old('item_share_email_to_email') }}"
+                                            {{ Auth::check() ? '' : 'disabled' }}>
+                                        @error('item_share_email_to_email')
+                                        <span class="invalid-tooltip">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="form-row mb-3">
+                                    <div class="col-md-12">
+                                        <label for="item_share_email_note"
+                                            class="text-black">{{ __('frontend.item.add-note') }}</label>
+                                        <textarea
+                                            class="form-control @error('item_share_email_note') is-invalid @enderror"
+                                            id="item_share_email_note" rows="3" name="item_share_email_note"
+                                            {{ Auth::check() ? '' : 'disabled' }}>{{ old('item_share_email_note') }}</textarea>
+                                        @error('item_share_email_note')
+                                        <span class="invalid-tooltip">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="col-md-12">
+                                        <button type="submit" class="btn btn-primary py-2 px-4 text-white rounded"
+                                            {{ Auth::check() ? '' : 'disabled' }}>
+                                            {{ __('frontend.item.send-email') }}
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary rounded"
+                        data-dismiss="modal">{{ __('backend.shared.cancel') }}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @if($item_total_categories > \App\Item::ITEM_TOTAL_SHOW_CATEGORY)
+    <!-- Modal show categories -->
+    <div class="modal fade" id="showCategoriesModal" tabindex="-1" role="dialog" aria-labelledby="showCategoriesModal"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">
+                        {{ __('categories.all-cat') . " - " . $item->item_title }}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-12">
+                            @foreach($item_all_categories as $item_all_categories_key => $a_category)
+
+                            <a class="btn btn-sm btn-outline-primary rounded mb-2"
+                                href="{{ route('page.category', $a_category->category_slug) }}">
+                                <span class="category">{{ $a_category->category_name }}</span>
+                            </a>
+
+                            @endforeach
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary rounded"
+                        data-dismiss="modal">{{ __('backend.shared.cancel') }}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    @endif
+
+    <!-- QR Code modal -->
+    <div class="modal fade" id="qrcodeModal" tabindex="-1" role="dialog" aria-labelledby="qrcodeModal"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">
+                        {{ __('theme_directory_hub.listing.qr-code')  }}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-12 text-center">
+                            <div id="item-qrcode"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary rounded"
+                        data-dismiss="modal">{{ __('importer_csv.error-notify-modal-close') }}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @if(!\Illuminate\Support\Facades\Auth::check())
+    <div class="modal fade" id="itemLeadModal" tabindex="-1" role="dialog" aria-labelledby="itemLeadModal"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">
+                        {{ __('rating_summary.contact') . ' ' . $item->item_title }}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <form action="{{ route('page.item.lead.store', ['item_slug' => $item->item_slug]) }}"
+                                method="POST">
+                                @csrf
+                                <div class="form-row mb-3">
+                                    <div class="col-12 col-md-6">
+                                        <label for="item_lead_name"
+                                            class="text-black">{{ __('role_permission.item-leads.item-lead-name') }}</label>
+                                        <input id="item_lead_name" type="text"
+                                            class="form-control @error('item_lead_name') is-invalid @enderror"
+                                            name="item_lead_name" value="{{ old('item_lead_name') }}">
+                                        @error('item_lead_name')
+                                        <span class="invalid-tooltip">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                        @enderror
+                                    </div>
+                                    <div class="col-12 col-md-6">
+                                        <label for="item_lead_email"
+                                            class="text-black">{{ __('role_permission.item-leads.item-lead-email') }}</label>
+                                        <input id="item_lead_email" type="text"
+                                            class="form-control @error('item_lead_email') is-invalid @enderror"
+                                            name="item_lead_email" value="{{ old('item_lead_email') }}">
+                                        @error('item_lead_email')
+                                        <span class="invalid-tooltip">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                        @enderror
+                                    </div>
+                                </div>
+
+                                <div class="form-row mb-3">
+                                    <div class="col-12 col-md-6">
+                                        <label for="item_lead_phone"
+                                            class="text-black">{{ __('role_permission.item-leads.item-lead-phone') }}</label>
+                                        <input id="item_lead_phone" type="text"
+                                            class="form-control @error('item_lead_phone') is-invalid @enderror"
+                                            name="item_lead_phone" value="{{ old('item_lead_phone') }}">
+                                        @error('item_lead_phone')
+                                        <span class="invalid-tooltip">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                        @enderror
+                                    </div>
+                                    <div class="col-12 col-md-6">
+                                        <label for="item_lead_subject"
+                                            class="text-black">{{ __('role_permission.item-leads.item-lead-subject') }}</label>
+                                        <input id="item_lead_subject" type="text"
+                                            class="form-control @error('item_lead_subject') is-invalid @enderror"
+                                            name="item_lead_subject" value="{{ old('item_lead_subject') }}">
+                                        @error('item_lead_subject')
+                                        <span class="invalid-tooltip">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                        @enderror
+                                    </div>
+                                </div>
+
+                                <div class="form-row mb-3">
+                                    <div class="col-md-12">
+                                        <label for="item_lead_message"
+                                            class="text-black">{{ __('role_permission.item-leads.item-lead-message') }}</label>
+                                        <textarea class="form-control @error('item_lead_message') is-invalid @enderror"
+                                            id="item_lead_message" rows="3"
+                                            name="item_lead_message">{{ old('item_lead_message') }}</textarea>
+                                        @error('item_lead_message')
+                                        <span class="invalid-tooltip">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                        @enderror
+                                    </div>
+                                </div>
+
+                                <!-- Start Google reCAPTCHA version 2 -->
+                                @if($site_global_settings->setting_site_recaptcha_item_lead_enable ==
+                                \App\Setting::SITE_RECAPTCHA_ITEM_LEAD_ENABLE)
+                                <div class="row form-group">
+                                    <div class="col-md-12">
+                                        {!! htmlFormSnippet() !!}
+                                        @error('g-recaptcha-response')
+                                        <span class="invalid-tooltip">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                @endif
+                                <!-- End Google reCAPTCHA version 2 -->
+
+                                <div class="form-row">
+                                    <div class="col-md-12">
+                                        <button type="submit" class="btn btn-primary py-2 px-4 text-white rounded">
+                                            {{ __('rating_summary.contact') }}
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary rounded"
+                        data-dismiss="modal">{{ __('backend.shared.cancel') }}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    @endif
+
+    @endsection
+
+    @section('scripts')
+
+    @if($item->item_type == \App\Item::ITEM_TYPE_REGULAR && $site_global_settings->setting_site_map ==
+    \App\Setting::SITE_MAP_OPEN_STREET_MAP)
+    <!-- Make sure you put this AFTER Leaflet's CSS -->
+    <script src="{{ asset('frontend/vendor/leaflet/leaflet.js') }}"></script>
+    @endif
+
+    <script src="{{ asset('frontend/vendor/justified-gallery/jquery.justifiedGallery.min.js') }}"></script>
+    <script src="{{ asset('frontend/vendor/colorbox/jquery.colorbox-min.js') }}"></script>
+
+    <script src="{{ asset('frontend/vendor/goodshare/goodshare.min.js') }}"></script>
+
+    <script src="{{ asset('frontend/vendor/jquery-qrcode/jquery-qrcode-0.18.0.min.js') }}"></script>
+
+    <script>
+        $(document).ready(function(){
 
             /**
              * Start initial map
@@ -3421,12 +3412,12 @@ $site_global_settings->setting_site_language]) !!}
              * End initial QR code
              */
         });
-            </script>
+    </script>
 
-            @if($site_global_settings->setting_site_map == \App\Setting::SITE_MAP_GOOGLE_MAP && $item->item_type ==
-            \App\Item::ITEM_TYPE_REGULAR)
-            <script>
-                // Initialize and add the map
+    @if($site_global_settings->setting_site_map == \App\Setting::SITE_MAP_GOOGLE_MAP && $item->item_type ==
+    \App\Item::ITEM_TYPE_REGULAR)
+    <script>
+        // Initialize and add the map
         function initMap() {
             // The location of Uluru
             var uluru = {lat: <?php echo $item->item_lat; ?>, lng: <?php echo $item->item_lng; ?>};
@@ -3442,10 +3433,10 @@ $site_global_settings->setting_site_language]) !!}
                 map: map
             });
         }
-            </script>
-            <script async defer
-                src="https://maps.googleapis.com/maps/api/js??v=quarterly&key={{ $site_global_settings->setting_site_map_google_api_key }}&callback=initMap">
-            </script>
-            @endif
+    </script>
+    <script async defer
+        src="https://maps.googleapis.com/maps/api/js??v=quarterly&key={{ $site_global_settings->setting_site_map_google_api_key }}&callback=initMap">
+    </script>
+    @endif
 
-            @endsection
+    @endsection

@@ -173,7 +173,7 @@
                                 @foreach($paid_items as $key => $item)
                                 <div class="d-block d-md-flex listing vertical">
                                     <a href="{{ route('page.item', $item->item_slug) }}" class="img d-block"
-                                        style="background-image: url({{ !empty($item->item_image_medium) ? 'https://s3.us-west-1.wasabisys.com/testa/original/'.$item->item_image_medium : (!empty($item->item_image) ? 'https://s3.us-west-1.wasabisys.com/testa/original/'. $item->item_image : asset('frontend/images/placeholder/full_item_feature_image_medium.webp')) }})"></a>
+                                        style="background-image: url({{ !empty($item->item_image_medium) ? 'https://s3.us-west-1.wasabisys.com//original/'.$item->item_image_medium : (!empty($item->item_image) ? 'https://s3.us-west-1.wasabisys.com//original/'. $item->item_image : asset('frontend/images/placeholder/full_item_feature_image_medium.webp')) }})"></a>
                                     <div class="lh-content">
 
                                         @foreach($item->getAllCategories(\App\Item::ITEM_TOTAL_SHOW_CATEGORY_HOMEPAGE)
@@ -231,7 +231,7 @@
                                                     alt="Image" class="img-fluid rounded-circle">
                                                 @else
 
-                                                <img src="{{ Storage::disk('public')->url('user/' . $item->user->user_image) }}"
+                                                <img src="https://s3.us-west-1.wasabisys.com/{{ config('app.WASABI_BUCKET')}}/profile/{{$item->user->user_image}}"
                                                     alt="{{ $item->user->name }}" class="img-fluid rounded-circle">
                                                 @endif
                                             </div>
@@ -291,7 +291,7 @@
 
                             <div class="listing-item listing">
                                 <div class="listing-image">
-                                    <img src="{{ !empty($item->item_image_medium) ? 'https://s3.us-west-1.wasabisys.com/testa/medium/'. $item->item_image_medium : (!empty($item->item_image) ? 'https://s3.us-west-1.wasabisys.com/testa/medium/'. $item->item_image : asset('frontend/images/placeholder/full_item_feature_image_medium.webp')) }}"
+                                    <img src="{{ !empty($item->item_image_medium) ? 'https://s3.us-west-1.wasabisys.com/pestcontrolgooglemap/medium/'. $item->item_image_medium : (!empty($item->item_image) ? 'https://s3.us-west-1.wasabisys.com/pestcontrolgooglemap/medium/'. $item->item_image : asset('frontend/images/placeholder/full_item_feature_image_medium.webp')) }}"
                                         alt="Image" class="img-fluid">
                                 </div>
                                 <div class="listing-item-content">
@@ -349,7 +349,7 @@
                                                 alt="Image" class="img-fluid rounded-circle">
                                             @else
 
-                                            <img src="{{ Storage::disk('public')->url('user/' . $item->user->user_image) }}"
+                                            <img src="https://s3.us-west-1.wasabisys.com/{{ config('app.WASABI_BUCKET')}}/profile/{{$item->user->user_image}}"
                                                 alt="{{ $item->user->name }}" class="img-fluid rounded-circle">
                                             @endif
                                         </div>
@@ -402,7 +402,7 @@
                         <div class="col-lg-6">
                             <div class="d-block d-md-flex listing">
                                 <a href="{{ route('page.item', $item->item_slug) }}" class="img d-block"
-                                    style="background-image: url({{ !empty($item->item_image_medium) ? 'https://s3.us-west-1.wasabisys.com/testa/original/'.$item->item_image_medium : (!empty($item->item_image) ? 'https://s3.us-west-1.wasabisys.com/testa/original/'. $item->item_image : asset('frontend/images/placeholder/full_item_feature_image_medium.webp')) }})"></a>
+                                    style="background-image: url({{ !empty($item->item_image_medium) ? 'https://s3.us-west-1.wasabisys.com/pestcontrolgooglemap/original/'.$item->item_image_medium : (!empty($item->item_image) ? 'https://s3.us-west-1.wasabisys.com/pestcontrolgooglemap/original/'. $item->item_image : asset('frontend/images/placeholder/full_item_feature_image_medium.webp')) }})"></a>
                                 <div class="lh-content">
 
                                     @foreach($item->getAllCategories(\App\Item::ITEM_TOTAL_SHOW_CATEGORY_HOMEPAGE) as
@@ -459,7 +459,7 @@
                                                 alt="Image" class="img-fluid rounded-circle">
                                             @else
 
-                                            <img src="{{ Storage::disk('public')->url('user/' . $item->user->user_image) }}"
+                                            <img src="https://s3.us-west-1.wasabisys.com/{{config('app.WASABI_BUCKET')}}/profile/{{ $item->user->user_image }}"
                                                 alt="{{ $item->user->name }}" class="img-fluid rounded-circle">
                                             @endif
                                         </div>

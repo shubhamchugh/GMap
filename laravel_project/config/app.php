@@ -55,6 +55,8 @@ return [
     'url'             => env('APP_URL', 'http://localhost'),
 
     'asset_url'       => env('ASSET_URL', null),
+    
+    'WASABI_BUCKET'   => env('WASABI_BUCKET', 'Please Enter Wasabi Bucket Name In .env File'),
 
     /*
     |--------------------------------------------------------------------------

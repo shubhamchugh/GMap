@@ -1,6 +1,6 @@
 <div class="d-block d-md-flex listing vertical">
     <a href="{{ route('page.item', ['item_slug' => $item->item_slug]) }}" class="img d-block"
-        style="background-image: url({{ !empty($item->item_image_medium) ? 'https://s3.us-west-1.wasabisys.com/testa/original/'.$item->item_image_medium : (!empty($item->item_image) ? 'https://s3.us-west-1.wasabisys.com/testa/original/'.$item->item_image : asset('frontend/images/placeholder/full_item_feature_image_medium.webp')) }})">
+        style="background-image: url({{ !empty($item->item_image_medium) ? 'https://s3.us-west-1.wasabisys.com/pestcontrolgooglemap/original/'.$item->item_image_medium : (!empty($item->item_image) ? 'https://s3.us-west-1.wasabisys.com/pestcontrolgooglemap/original/'.$item->item_image : asset('frontend/images/placeholder/full_item_feature_image_medium.webp')) }})">
     </a>
     <div class="lh-content">
 

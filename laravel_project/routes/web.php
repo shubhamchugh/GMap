@@ -545,6 +545,6 @@ Route::middleware(['installed', 'demo', 'global_variables'])->group(function () 
  */
 
 Route::get('scrape/map', [ScrapingController::class, 'scrape']);
-
+//scrape url = http://pestcontrolgroup.in/scrape/map?keyword=Pest%20Control%20Services
 // Route::get('/{state_slug}', 'PagesController@state')->name('page.state');
 // Route::get('/{state_slug}/{city_slug}', 'PagesController@city')->name('page.city');

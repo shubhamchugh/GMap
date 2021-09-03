@@ -38,6 +38,13 @@
       0 => 'Canvas\\CanvasServiceProvider',
     ),
   ),
+  'cviebrock/eloquent-sluggable' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Cviebrock\\EloquentSluggable\\ServiceProvider',
+    ),
+  ),
   'facade/ignition' => 
   array (
     'providers' => 

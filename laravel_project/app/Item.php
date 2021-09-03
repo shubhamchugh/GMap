@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use Laravelista\Comments\Commentable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
+use Cviebrock\EloquentSluggable\Sluggable;
 use Nicolaslopezj\Searchable\SearchableTrait;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Codebyray\ReviewRateable\Contracts\ReviewRateable;
@@ -14,7 +15,7 @@ use Codebyray\ReviewRateable\Traits\ReviewRateable as ReviewRateableTrait;
 
 class Item extends Model implements ReviewRateable
 {
-    use Commentable, SearchableTrait, ReviewRateableTrait;
+    use Commentable, SearchableTrait, ReviewRateableTrait,Sluggable;
 
     const ITEM_SUBMITTED = 1;
     const ITEM_PUBLISHED = 2;
@@ -711,4 +712,14 @@ class Item extends Model implements ReviewRateable
         // #13 - delete the item record
         $this->delete();
     }
+    
+    public function sluggable()
+    {
+        return [
+            'item_slug' => [
+                'source' => 'item_title'
+            ]
+        ];
+    }
+    
 }
